@@ -419,28 +419,10 @@ static NSString *const kEventFormatterTimeFormat = @"HH:mm";
     if (BuildSettings.supportFunctionalMembers)
     {
         // Customisation for EMS Functional Members
-        MXEvent *functionalMembersEvent = [self functionalMembersEventFromStateEvents:stateEvents];
-        
-        if (functionalMembersEvent)
+        if ([self functionalMembersEventFromStateEvents:stateEvents])
         {
-            MXEvent *existingFunctionalMembersEvent = [self previousFunctionalMembersEventFromStateEvents:roomState.stateEvents];
-            
-            // If there isn't an existing functional members event we're done, the state has changed.
-            if (!existingFunctionalMembersEvent)
-            {
-                MXLogDebug(@"[EventFormatter] A functional members event has been added to the room.")
-                return YES;
-            }
-            
-            NSArray<NSString*> *serviceMemberIDs = functionalMembersEvent.content[FunctionalMembersServiceMembersKey] ?: @[];
-            NSArray<NSString*> *existingServiceMemberIDs = existingFunctionalMembersEvent.content[FunctionalMembersServiceMembersKey] ?: @[];
-            
-            // If the new service members differ from the existing ones, the state has changed.
-            if (![serviceMemberIDs isEqualToArray:existingServiceMemberIDs])
-            {
-                MXLogDebug(@"[EventFormatter] The functional members event has changed.")
-                return YES;
-            }
+            MXLogDebug(@"[EventFormatter] The functional members event has been updated.")
+            return YES;
         }
     }
     
@@ -471,31 +453,13 @@ static NSString *const kEventFormatterTimeFormat = @"HH:mm";
 }
 
 /**
- Gets the newest state event of type `io.element.functional_members` from the supplied array of state events.
+ Gets the latest state event of type `io.element.functional_members` from the supplied array of state events.
  @return An event of type `io.element.functional_members`, or nil if the event wasn't found.
  */
 - (MXEvent *)functionalMembersEventFromStateEvents:(NSArray<MXEvent *> *)stateEvents
 {
     NSPredicate *functionalMembersPredicate = [NSPredicate predicateWithFormat:@"type == %@", FunctionalMembersStateEventType];
     return [stateEvents filteredArrayUsingPredicate:functionalMembersPredicate].lastObject;
-}
-
-/**
- Gets the last but one state event of type `io.element.functional_members` from the supplied array of state events.
- @return An event of type `io.element.functional_members`, or nil if the event wasn't found.
- */
-- (MXEvent *)previousFunctionalMembersEventFromStateEvents:(NSArray<MXEvent *> *)stateEvents
-{
-    NSPredicate *functionalMembersPredicate = [NSPredicate predicateWithFormat:@"type == %@", FunctionalMembersStateEventType];
-    NSArray<MXEvent *> *events = [stateEvents filteredArrayUsingPredicate:functionalMembersPredicate];
-    
-    if (events.count <= 1)
-    {
-        // There are no previous events, return nil.
-        return nil;
-    }
-    
-    return events[events.count - 2];
 }
 
 #pragma mark - Timestamp formatting
