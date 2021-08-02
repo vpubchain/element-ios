@@ -461,6 +461,10 @@ static NSString *const kEventFormatterTimeFormat = @"HH:mm";
             NSArray<NSString*> *serviceMemberIDs = functionalMembersEvent.content[FunctionalMembersServiceMembersKey] ?: @[];
             defaultRoomSummaryUpdater.excludedUserIDs = serviceMemberIDs;
         }
+        else
+        {
+            defaultRoomSummaryUpdater.excludedUserIDs = @[];
+        }
     }
 
     return [super session:session updateRoomSummary:summary withServerRoomSummary:serverRoomSummary roomState:roomState];
