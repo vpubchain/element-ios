@@ -459,11 +459,11 @@ static NSString *const kEventFormatterTimeFormat = @"HH:mm";
             MXLogDebug(@"[EventFormatter] Computing the room name and avatar excluding functional members.")
             
             NSArray<NSString*> *serviceMemberIDs = functionalMembersEvent.content[FunctionalMembersServiceMembersKey] ?: @[];
-            defaultRoomSummaryUpdater.excludedUserIDs = serviceMemberIDs;
+            defaultRoomSummaryUpdater.unimportantUserIDs = serviceMemberIDs;
         }
         else
         {
-            defaultRoomSummaryUpdater.excludedUserIDs = @[];
+            defaultRoomSummaryUpdater.unimportantUserIDs = @[];
         }
     }
 
