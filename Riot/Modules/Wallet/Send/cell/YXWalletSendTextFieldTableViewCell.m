@@ -140,6 +140,14 @@ extern NSString *const kEndEditFieldTextNotification;
     }
    
     self.textField.placeholder = rowData.placedholder;
+    
+    if ([self.rowData.name isEqualToString:@"发送数量"] && [self.rowData.currentSelectModel.sendCount isEqualToString:@""]) {
+        self.textField.text = @"";
+    }
+    
+    if ([self.rowData.name isEqualToString:@"备注信息"] && [self.rowData.currentSelectModel.sendInfo isEqualToString:@""]) {
+        self.textField.text = @"";
+    }
 }
 
 

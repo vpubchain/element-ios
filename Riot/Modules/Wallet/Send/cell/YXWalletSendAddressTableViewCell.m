@@ -178,7 +178,7 @@ extern NSString *const kEndEditFieldTextNotification;
     self.rowData = rowData;
     self.titleLabel.text = rowData.name;
     self.textField.placeholder = rowData.placedholder;
-    if (rowData.currentSelectModel.sendAddress.length > 0) {
+    if (rowData.currentSelectModel.sendAddress.length > 0 || [rowData.currentSelectModel.sendAddress isEqualToString:@""]) {
         self.textField.text = rowData.currentSelectModel.sendAddress;
     }
 }

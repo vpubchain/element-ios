@@ -89,6 +89,12 @@
         [_viewModel setNextBlock:^(YXWalletSendDataInfo * _Nonnull model) {
             YXWalletConfirmationViewController *confirmatVc = [[YXWalletConfirmationViewController alloc]init];
             confirmatVc.sendDataInfo = model;
+            [confirmatVc setReloadRecordData:^{
+                weakSelf.currentSelectModel.sendAddress = @"";
+                weakSelf.currentSelectModel.sendCount = @"";
+                weakSelf.currentSelectModel.sendInfo = @"";
+                [weakSelf.viewModel reloadNewData:weakSelf.currentSelectModel];
+            }];  
             [weakSelf.navigationController pushViewController:confirmatVc animated:YES];
         }];
         
