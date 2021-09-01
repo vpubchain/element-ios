@@ -103,7 +103,7 @@
         // 成功的话
         if (success){
             success(responseObject);
-            [self showRequestMessageWith:responseObject];
+            [self showRequestTipMessageWith:responseObject];
         }
         
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -149,7 +149,7 @@
         
         if (success){
             success(responseObject);
-            [self showRequestMessageWith:responseObject];
+            [self showRequestTipMessageWith:responseObject];
         }
         
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO]; // 关闭状态栏动画
@@ -199,7 +199,7 @@
         
         if (success){
             success(responseObject);
-            [self showRequestMessageWith:responseObject];
+            [self showRequestTipMessageWith:responseObject];
         }
         
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO]; // 关闭状态栏动画
@@ -255,7 +255,7 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (success) {
             success(responseObject);
-            [self showRequestMessageWith:responseObject];
+            [self showRequestTipMessageWith:responseObject];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if (failure) {
@@ -319,7 +319,7 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (success) {
             success(responseObject);
-            [self showRequestMessageWith:responseObject];
+            [self showRequestTipMessageWith:responseObject];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if (failure) {
@@ -400,7 +400,7 @@
         // 成功的话
         if (success){
             success(responseObject);
-            [self showRequestMessageWith:responseObject];
+            [self showRequestTipMessageWith:responseObject];
         }
         
 
@@ -422,7 +422,8 @@
     [manager.requestSerializer setValue:GET_A_NOT_NIL_STRING([YXWalletPasswordManager sharedYXWalletPasswordManager].passWord) forHTTPHeaderField:@"x-password"];
 }
 
-- (void)showRequestMessageWith:(NSDictionary *)responseObject{
+//请求错误toast提示
+- (void)showRequestTipMessageWith:(NSDictionary *)responseObject{
     YXWalletNomalModel *model = [YXWalletNomalModel mj_objectWithKeyValues:responseObject];
     if (model.status.intValue != 200) {
         [MBProgressHUD showError:model.msg];

@@ -36,8 +36,10 @@
         _naviView.leftImage = [UIImage imageNamed:@"back_b_black"];
         _naviView.backgroundColor = UIColor.whiteColor;
         if ([self.sendDataInfo.action isEqualToString:@"pending"]) {//待处理
-            _naviView.showRightLabel = YES;
-            _naviView.rightText = @"取消支付";
+            if ([self.sendDataInfo.type isEqualToString:@"1"]){
+                _naviView.showRightLabel = YES;
+                _naviView.rightText = @"取消支付";
+            }
         }
         YXWeakSelf
         _naviView.backBlock = ^{

@@ -253,13 +253,20 @@ extern NSString *const kYXArmingFlagNodeListForDetail;
     self.configLabel.text = rowData.ip;
     self.titleLabel.text = rowData.ip;
     
-    if ([rowData.status isEqualToString:@"ENABLED"] || [rowData.status isEqualToString:@"PRE_ENABLED"]) {
-        _stateLabel.text = @"正常运行";
-        _stateLabel.backgroundColor = RGBA(0,255,0,0.4);
-    }else{
-        _stateLabel.text = @"节点掉线";
+    if (rowData.turnoffFlag) {
+        _stateLabel.text = @"节点异常";
         _stateLabel.backgroundColor = RGBA(255,72,0,1);
+    }else{
+        if ([rowData.status isEqualToString:@"ENABLED"] || [rowData.status isEqualToString:@"PRE_ENABLED"]) {
+            _stateLabel.text = @"正常运行";
+            _stateLabel.backgroundColor = RGBA(0,255,0,0.4);
+        }else{
+            _stateLabel.text = @"节点掉线";
+            _stateLabel.backgroundColor = RGBA(255,72,0,1);
+        }
     }
+   
+
 }
 
 

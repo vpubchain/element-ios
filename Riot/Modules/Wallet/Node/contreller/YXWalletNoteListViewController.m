@@ -124,6 +124,7 @@
             }];
             model.walletId = weakSelf.model.walletId;
             configVc.nodeListModel = model;
+            configVc.isConfig = model.configuration;
             [weakSelf.navigationController pushViewController:configVc animated:YES];
         }];
 

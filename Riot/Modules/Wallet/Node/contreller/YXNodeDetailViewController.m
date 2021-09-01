@@ -127,6 +127,12 @@
         
         //重新激活
         [_viewModel setActivationNodeBlock:^{
+            
+            if ([weakSelf.nodeListModel.status isEqualToString:@"OUTPOINT_SPENT"]) {
+                [MBProgressHUD showSuccess:@"质押已花完"];
+                return;
+            }
+            
             YXNodeConfigViewController *configVc = [[YXNodeConfigViewController alloc]init];
             //配置成功需要刷新当前页面
             [configVc setReloadDataBlock:^{
@@ -134,12 +140,18 @@
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"Reload_Node_Notification" object:nil];
             }];
             configVc.nodeListModel = weakSelf.nodeListModel;
+            configVc.isConfig = YES;
             [weakSelf.navigationController pushViewController:configVc animated:YES];
         }];
 
         //解冻质押
         [_viewModel setWalletArmingFlagNodeBlock:^{
-            weakSelf.walletArmingFlagView.hidden = NO;
+            if (!weakSelf.nodeListModel.maturity) {//未到期
+                weakSelf.walletArmingFlagView.hidden = NO;
+            }else{
+                [MBProgressHUD showSuccess:@"质押已过期"];
+            }
+            
         }];
         
     }

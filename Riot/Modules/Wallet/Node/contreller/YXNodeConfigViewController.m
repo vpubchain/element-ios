@@ -48,18 +48,24 @@
         _viewModel = [[YXNodeDetailViewModel alloc]init];
         YXWeakSelf
         [_viewModel setGetNodeInfoBlock:^{
-            weakSelf.nodeConfigView.nodeText = [NSString stringWithFormat:@"IP:%@\n%@", weakSelf.viewModel.nodeInfoModel.ip, weakSelf.viewModel.nodeInfoModel.genkey];
-            weakSelf.noteInfo =  weakSelf.viewModel.nodeInfoModel;
+            
+            if (weakSelf.isConfig) {
+                weakSelf.nodeConfigView.nodeText = [NSString stringWithFormat:@"IP:%@\n%@", weakSelf.viewModel.nodeInfoModel.ip, weakSelf.viewModel.nodeInfoModel.genkey];
+                weakSelf.noteInfo =  weakSelf.viewModel.nodeInfoModel;
+            }
 
         }];
         
         [_viewModel setGetNodePledegBlock:^{
-            if (weakSelf.viewModel.pledegModel.data.count > 0) {
-                YXNodeConfigDataItem *model = weakSelf.viewModel.pledegModel.data.firstObject;
-                weakSelf.nodeConfigView.pledgeText = model.txid;
-                weakSelf.is_pledeg = YES;
-                weakSelf.configData = model;
+            if (weakSelf.isConfig) {
+                if (weakSelf.viewModel.pledegModel.data.count > 0) {
+                    YXNodeConfigDataItem *model = weakSelf.viewModel.pledegModel.data.firstObject;
+                    weakSelf.nodeConfigView.pledgeText = model.txid;
+                    weakSelf.is_pledeg = YES;
+                    weakSelf.configData = model;
+                }
             }
+
         }];
 
     }
@@ -87,16 +93,20 @@
     if (!_nodeConfigView) {
         _nodeConfigView = [[YXNodeConfigView alloc]init];
         YXWeakSelf
-//        [_nodeConfigView setPledgeDealBlock:^{
-//            weakSelf.nodeSettingView.pledegModel = weakSelf.viewModel.pledegModel;
-//            weakSelf.nodeSettingView.hidden = NO;
-//
-//        }];
-//        [_nodeConfigView setMainNodeBlock:^{
-//            weakSelf.nodeSettingView.nodeInfoModel = weakSelf.viewModel.nodeInfoModel;
-//            weakSelf.nodeSettingView.hidden = NO;
-//
-//        }];
+        [_nodeConfigView setPledgeDealBlock:^{
+            if (!weakSelf.isConfig) {
+                weakSelf.nodeSettingView.pledegModel = weakSelf.viewModel.pledegModel;
+                weakSelf.nodeSettingView.hidden = NO;
+            }
+        }];
+        [_nodeConfigView setMainNodeBlock:^{
+            
+            if (!weakSelf.isConfig) {
+                weakSelf.nodeSettingView.nodeInfoModel = weakSelf.viewModel.nodeInfoModel;
+                weakSelf.nodeSettingView.hidden = NO;
+            }
+
+        }];
         
         [_nodeConfigView setActivationBlock:^{
             [weakSelf activationAction];

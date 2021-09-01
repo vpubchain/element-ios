@@ -30,7 +30,7 @@ typedef NS_ENUM(NSInteger , YXAssetsDetailRecordsStatue) {
 @property (nonatomic , copy) NSString              * txHash;
 @property (nonatomic , copy) NSString              * walletId;
 @property (nonatomic , copy) NSString              * action;
-@property (nonatomic , copy) NSString              * type;
+@property (nonatomic , copy) NSString              * type;//类型 1 为转账 2 兑现
 @property (nonatomic , copy) NSString              * addr;
 @property (nonatomic , copy) NSString              * message;
 @property (nonatomic , assign) CGFloat              amount;
@@ -39,7 +39,6 @@ typedef NS_ENUM(NSInteger , YXAssetsDetailRecordsStatue) {
 @property (nonatomic , copy) NSString              * baseSybol;
 @property (nonatomic , assign) YXAssetsDetailRecordsStatue              status;
 @property (nonatomic , assign) NSInteger              flag;
-
 @end
 
 

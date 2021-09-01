@@ -101,7 +101,13 @@
         YXNodeListdata *model = (YXNodeListdata *)rowItem.rowData;
         
         if (!model.configuration) return;//未配置不能进入详情页
-        model.armingFlag = @"1";
+        
+        if (model.turnoffFlag) {
+            model.armingFlag = @"0";
+        }else{
+            model.armingFlag = @"1";
+        }
+        
         if (self.touchNodeListForDetailBlock) {
             self.touchNodeListForDetailBlock(model);
         }

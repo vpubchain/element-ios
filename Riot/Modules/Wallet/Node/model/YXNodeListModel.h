@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * userId;
 @property (nonatomic , copy) NSString              * status;
 @property (nonatomic , copy) NSString              * maturityTime;
-@property (nonatomic , copy) NSString              * turnoffFlag;
+@property (nonatomic , assign) BOOL               turnoffFlag;//服务器是否关闭 0 未关闭 1 以关闭
 @property (nonatomic , copy) NSString              * country;
 @property (nonatomic , assign) BOOL              configuration;
 @property (nonatomic , copy) NSString              * lastseen;

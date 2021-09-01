@@ -57,7 +57,7 @@
     NSMutableArray *array = [NSMutableArray array];
     [array addObject:[self createModelWithCellName:@"YXLineTableViewCell" cellHeight:30 cellType:YXWalletSendCellTypeLine desc:nil name:nil placedholder:nil title:nil content:nil]];
     [array addObject:[self createModelWithCellName:@"YXWalletSendCellTypTopViewCell" cellHeight:150 cellType:YXWalletSendCellTypTopView desc:@"≈￥0.0007" name:nil placedholder:nil title:@"-0.001 VCL" content:nil]];
-    [array addObject:[self createModelWithCellName:@"YXWalletSendCellTypeContentCell" cellHeight:80 cellType:YXWalletSendCellTypeContent desc:@"" name:nil placedholder:nil title:@"交易类型" content:@"转账"]];
+    [array addObject:[self createModelWithCellName:@"YXWalletSendCellTypeContentCell" cellHeight:80 cellType:YXWalletSendCellTypeContent desc:@"" name:nil placedholder:nil title:@"交易类型" content:[model.type isEqualToString:@"1"] ? @"转账":@"兑现"]];
     [array addObject:[self createModelWithCellName:@"YXWalletSendCellTypeContentCell" cellHeight:80 cellType:YXWalletSendCellTypeContent desc:@"" name:nil placedholder:nil title:@"接收地址" content:@"MW4a6de6a5s465fef13f46dg6rey6S"]];
     [array addObject:[self createModelWithCellName:@"YXWalletSendCellTypeContentCell" cellHeight:80 cellType:YXWalletSendCellTypeContent desc:@"VCL" name:nil placedholder:nil title:@"手续费" content:@"手续费"]];
     [array addObject:[self createModelWithCellName:@"YXWalletSendCellTypCenterViewCell" cellHeight:60 cellType:YXWalletSendCellTypeContent desc:@"" name:nil placedholder:nil title:@"" content:@""]];
@@ -66,7 +66,11 @@
     [array addObject:[self createModelWithCellName:@"YXLineTableViewCell" cellHeight:30 cellType:YXWalletSendCellTypeLine desc:nil name:nil placedholder:nil title:nil content:nil]];
     
     if (![model.title isEqualToString:@"交易详情"]) {
-        [array addObject:[self createModelWithCellName:@"YXWalletCopyTableViewCell" cellHeight:40 cellType:YXWalletSendCellTypeLine desc:nil name:nil placedholder:nil title:[model.action isEqualToString:@"pending"] ? @"继续支付" : @"确认支付" content:nil]];
+        
+        if ([model.type isEqualToString:@"1"]){
+            [array addObject:[self createModelWithCellName:@"YXWalletCopyTableViewCell" cellHeight:40 cellType:YXWalletSendCellTypeLine desc:nil name:nil placedholder:nil title:[model.action isEqualToString:@"pending"] ? @"继续支付" : @"确认支付" content:nil]];
+        }
+     
     }
 
     
