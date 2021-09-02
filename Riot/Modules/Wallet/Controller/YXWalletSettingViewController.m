@@ -15,11 +15,13 @@
 #import "YXWalletSettingPasswordViewController.h"
 #import "YXWalletPaymentAccountViewController.h"
 #import "YXWalletViewController.h"
+#import "YXWalletInputPasswordView.h"
 @interface YXWalletSettingViewController ()
 @property (nonatomic , strong)YXNaviView *naviView;
 @property (nonatomic , strong)UITableView *tableView;
 @property (nonatomic , strong)YXWalletSettingViewModel *viewModel;
 @property (nonatomic , strong)YXWalletPopupView *walletPopupView;
+@property (nonatomic , strong)YXWalletInputPasswordView *inputPasswordView;
 @end
 
 @implementation YXWalletSettingViewController
@@ -31,6 +33,28 @@
         [UIApplication.sharedApplication.keyWindow addSubview:self.walletPopupView];
     }
 }
+
+-(YXWalletInputPasswordView *)inputPasswordView{
+    if (!_inputPasswordView) {
+        _inputPasswordView = [[YXWalletInputPasswordView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        [_inputPasswordView showView:YES];
+        YXWeakSelf
+        [_inputPasswordView setEndEditBlock:^(NSString * _Nonnull password) {
+            //验证密码是否正确
+            NSString *md5Pw = [Tool stringToMD5:password];
+            NSString *currentMd5 = [YXWalletPasswordManager sharedYXWalletPasswordManager].passWord;
+            if ([md5Pw isEqualToString:currentMd5]) {
+                [weakSelf showHelpWord];
+            }else{
+                [MBProgressHUD showError:@"密码错误"];
+            }
+        }];
+    }
+    return _inputPasswordView;
+    
+}
+
+
 
 -(YXWalletPopupView *)walletPopupView{
     if (!_walletPopupView) {
@@ -124,13 +148,10 @@
         [self.navigationController pushViewController:settingPasswordVC animated:YES];
     }else if (type == YXWalletSettingXSZJQType){//显示助记词
         
-        [self.viewModel getWalletHelpWord:self.model.walletId complete:^(NSDictionary * _Nonnull responseObject) {
-            YXWalletHelpWordViewController *helpWordKeyVc = [[YXWalletHelpWordViewController alloc]init];
-            helpWordKeyVc.helpWord = responseObject[@"data"];
-            helpWordKeyVc.helpWordArray = [GET_A_NOT_NIL_STRING(helpWordKeyVc.helpWord) componentsSeparatedByString:@" "];
-            [weakSelf.navigationController pushViewController:helpWordKeyVc animated:YES];
-  
-        }];
+        [self.inputPasswordView removeFromSuperview];
+        self.inputPasswordView = nil;
+        [UIApplication.sharedApplication.keyWindow addSubview:weakSelf.inputPasswordView];
+        [self.inputPasswordView showView:NO];
 
         
     }else if (type == YXWalletSettingXSSYType){//显示私钥
@@ -179,6 +200,17 @@
 }
 
 
+- (void)showHelpWord{
+    [self.inputPasswordView showView:YES];
+    YXWeakSelf
+    [self.viewModel getWalletHelpWord:self.model.walletId complete:^(NSDictionary * _Nonnull responseObject) {
+        YXWalletHelpWordViewController *helpWordKeyVc = [[YXWalletHelpWordViewController alloc]init];
+        helpWordKeyVc.helpWord = responseObject[@"data"];
+        helpWordKeyVc.helpWordArray = [GET_A_NOT_NIL_STRING(helpWordKeyVc.helpWord) componentsSeparatedByString:@" "];
+        [weakSelf.navigationController pushViewController:helpWordKeyVc animated:YES];
+
+    }];
+}
 
 
 @end

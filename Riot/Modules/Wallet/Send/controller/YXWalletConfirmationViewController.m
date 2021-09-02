@@ -35,7 +35,7 @@
         _naviView.titleColor = UIColor51;
         _naviView.leftImage = [UIImage imageNamed:@"back_b_black"];
         _naviView.backgroundColor = UIColor.whiteColor;
-        if ([self.sendDataInfo.action isEqualToString:@"pending"]) {//待处理
+        if ([self.sendDataInfo.action isEqualToString:@"pending"] && ![_naviView.title isEqualToString:@"确认交易"]) {//待处理
             if ([self.sendDataInfo.type isEqualToString:@"1"]){
                 _naviView.showRightLabel = YES;
                 _naviView.rightText = @"取消支付";
@@ -116,6 +116,7 @@
             if ([md5Pw isEqualToString:currentMd5]) {
                 [weakSelf.viewModel confirmPay];
             }else{
+                [MBProgressHUD showError:@"密码错误"];
                 [weakSelf.inputPasswordView showView:YES];
                 weakSelf.walletPayFailView.hidden = NO;
             }

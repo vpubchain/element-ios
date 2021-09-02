@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * walletId;
 @property (nonatomic , copy) NSString              * accoutId;
 @property (nonatomic , copy) NSString              * userId;
-@property (nonatomic , copy) NSString              * amount;
+@property (nonatomic , assign) CGFloat              amount;
 @property (nonatomic , copy) NSString              * cashFees;
 @property (nonatomic , copy) NSString              * message;
 @property (nonatomic , copy) NSString              * transcationId;

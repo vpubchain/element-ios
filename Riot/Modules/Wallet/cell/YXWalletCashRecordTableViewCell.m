@@ -234,9 +234,9 @@
         _titleIcon.image = [UIImage imageNamed:@"jilu_dui"];
     }
     
-    _desLabel.text = _desLabel.text = rowData.message;
+    _desLabel.text = rowData.message;
     _numLabel.text = rowData.createDate;
-    _countLabel.text = rowData.amount;
+    _countLabel.text = [NSString stringWithFormat:@"%.2f",rowData.amount];
     
 }
 

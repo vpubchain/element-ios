@@ -239,11 +239,7 @@ extern NSString *const kYXArmingFlagNodeListForDetail;
     self.desLabel.hidden = !config;
     self.stateLabel.hidden = !config;
 
-    if ([self.rowData.armingFlag isEqualToString:@"0"]) {
-        self.armingFlagBtn.hidden = !config;
-    }else{
-        self.armingFlagBtn.hidden = YES;
-    }
+    self.armingFlagBtn.hidden = YES;
  
 }
 

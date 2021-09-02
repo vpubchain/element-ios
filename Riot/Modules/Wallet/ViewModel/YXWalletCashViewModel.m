@@ -234,6 +234,12 @@
 //确认兑现
 - (void)walletConfirmToCash{
     
+    //创建成功，验证密码没密码提醒用户去创建密码
+    if (![YXWalletPasswordManager sharedYXWalletPasswordManager].isHavePassword) {
+        [MBProgressHUD showSuccess:@"未设置密码请求前往设置"];
+        return;
+    }
+    
     YXWeakSelf
     
     NSString *walletId = self.walletModel.walletId;
@@ -252,11 +258,6 @@
     
     [NetWorkManager POST:kURL(@"/cash/create") parameters:paramDict success:^(id  _Nonnull responseObject) {
         
-        //创建成功，验证密码没密码提醒用户去创建密码
-        if (![YXWalletPasswordManager sharedYXWalletPasswordManager].isHavePassword) {
-            [MBProgressHUD showSuccess:@"未设置密码请求前往设置"];
-            return;
-        }
         
         YXWalletCashCreateModel *model = [YXWalletCashCreateModel mj_objectWithKeyValues:responseObject];
         weakSelf.cashCreateModel = model;

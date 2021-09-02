@@ -118,6 +118,8 @@
             NSString *currentMd5 = [YXWalletPasswordManager sharedYXWalletPasswordManager].passWord;
             if ([md5Pw isEqualToString:currentMd5]) {
                 [weakSelf.viewModel confirmToCash];
+            }else{
+                [MBProgressHUD showError:@"密码错误"];
             }
             
             
