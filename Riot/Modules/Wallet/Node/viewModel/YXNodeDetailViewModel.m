@@ -23,14 +23,14 @@
     
     NSMutableArray<SCETRowItem *> *rowItems = [NSMutableArray new];
 
-    NSString *headTitle = [model.armingFlag isEqualToString:@"0"] ? @"解冻质押" : @"重新激活";
+    NSString *headTitle = model.turnoffFlag ? @"解冻质押" : @"重新激活";
     
     SCETRowItem *headItem = [SCETRowItem rowItemWithRowData:headTitle cellClassString:NSStringFromClass([YXNodeDetailHeadTableViewCell class])];
     headItem.cellHeight = 260;
     [rowItems addObject:headItem];
     
     
-    if ([model.armingFlag isEqualToString:@"0"]) {
+    if (model.turnoffFlag) {
         SCETRowItem *armingFlagtem = [SCETRowItem rowItemWithRowData:@"test cell" cellClassString:NSStringFromClass([YXNodeArmingFlagTableViewCell class])];
         armingFlagtem.cellHeight = 260;
         [rowItems addObject:armingFlagtem];

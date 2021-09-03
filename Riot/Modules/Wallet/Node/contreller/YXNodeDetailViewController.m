@@ -146,6 +146,12 @@
 
         //解冻质押
         [_viewModel setWalletArmingFlagNodeBlock:^{
+            
+            if ([weakSelf.nodeListModel.armingFlag isEqualToString:@"1"]) {
+                [MBProgressHUD showSuccess:@"质押已解冻"];
+                return;
+            }
+            
             if (!weakSelf.nodeListModel.maturity) {//未到期
                 weakSelf.walletArmingFlagView.hidden = NO;
             }else{

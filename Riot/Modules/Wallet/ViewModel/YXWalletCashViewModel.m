@@ -240,6 +240,8 @@
         return;
     }
     
+
+    
     YXWeakSelf
     
     NSString *walletId = self.walletModel.walletId;
@@ -248,6 +250,10 @@
     NSString *cashFees = self.walletModel.cashFee;
     NSString *message = self.walletModel.cashNoteInfo;
     
+    if (amount.intValue > self.walletModel.balance) {
+        [MBProgressHUD showSuccess:@"兑现数量不能大于总数"];
+        return;
+    }
     
     NSMutableDictionary *paramDict = [[NSMutableDictionary alloc]init];
     [paramDict setObject:GET_A_NOT_NIL_STRING(walletId) forKey:@"walletId"];

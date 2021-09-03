@@ -104,13 +104,15 @@
 -(void)setupCellWithRowData:(YXNodeDetailModel *)rowData{
     self.titleLabel.text = rowData.title;
     self.desLabel.text = rowData.desc;
-    if ([rowData.desc isEqualToString:@"正常运行"] ) {
-   
-        _desLabel.textColor = UIColor153;
-    }else{
-
-        _desLabel.textColor = RGBA(255,72,0,1);
+    
+    if ([rowData.title isEqualToString:@"节点状态"]) {
+        if ([rowData.desc isEqualToString:@"正常运行"] ) {
+            _desLabel.textColor = UIColor153;
+        }else{
+            _desLabel.textColor = RGBA(255,72,0,1);
+        }
     }
+ 
 }
 
 

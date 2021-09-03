@@ -65,6 +65,12 @@
     NSString *amount = self.currentSelectModel.sendCount;
     NSString *message = self.currentSelectModel.sendInfo;
 
+    
+    if (amount.intValue > self.currentSelectModel.balance) {
+        [MBProgressHUD showSuccess:@"发送数量不能大于总数"];
+        return;
+    }
+    
     if (acceptAddr.length == 0) {
         [MBProgressHUD showSuccess:@"请输入地址"];
         return;
