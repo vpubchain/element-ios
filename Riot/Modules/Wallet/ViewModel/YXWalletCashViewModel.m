@@ -240,7 +240,21 @@
         return;
     }
     
+    NSString *amount = self.walletModel.cashCount;
 
+    
+    if (amount.floatValue > self.walletModel.balance) {
+        [MBProgressHUD showSuccess:@"兑现数量不能大于总数"];
+        return;
+    }
+    
+    if (self.showInputPasswordViewBlock) {
+        self.showInputPasswordViewBlock();
+    }
+    
+}
+
+- (void)confirmToCashAction{
     
     YXWeakSelf
     
@@ -250,7 +264,7 @@
     NSString *cashFees = self.walletModel.cashFee;
     NSString *message = self.walletModel.cashNoteInfo;
     
-    if (amount.intValue > self.walletModel.balance) {
+    if (amount.floatValue > self.walletModel.balance) {
         [MBProgressHUD showSuccess:@"兑现数量不能大于总数"];
         return;
     }
@@ -268,9 +282,9 @@
         YXWalletCashCreateModel *model = [YXWalletCashCreateModel mj_objectWithKeyValues:responseObject];
         weakSelf.cashCreateModel = model;
         if (model.status == 200) {
-            if (weakSelf.showInputPasswordViewBlock) {
-                weakSelf.showInputPasswordViewBlock();
-            }
+            
+            [weakSelf confirmToCash];
+            
         }else{
             [MBProgressHUD showError:model.msg];
         }
@@ -279,7 +293,6 @@
     } failure:^(NSError * _Nonnull error) {
         [MBProgressHUD showError:@"兑现失败"];
     }];
-    
 }
 
 - (void)confirmToCash{

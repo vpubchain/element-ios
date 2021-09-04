@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)getCurrentAcountData:(YXWalletMyWalletRecordsItem *)model;
 //确认兑现
 - (void)walletConfirmToCash;
-- (void)confirmToCash;
+- (void)confirmToCashAction;
 @end
 
 NS_ASSUME_NONNULL_END

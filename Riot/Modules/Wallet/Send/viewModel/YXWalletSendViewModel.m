@@ -66,7 +66,7 @@
     NSString *message = self.currentSelectModel.sendInfo;
 
     
-    if (amount.intValue > self.currentSelectModel.balance) {
+    if (amount.floatValue > self.currentSelectModel.balance) {
         [MBProgressHUD showSuccess:@"发送数量不能大于总数"];
         return;
     }
