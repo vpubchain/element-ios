@@ -173,7 +173,13 @@
         
     }else if (type == YXWalletSettingTBJLType){//同步数据
         
+    }else if (type == YXWalletSettingQBIDType){//同步数据
+        UIPasteboard *pab = [UIPasteboard generalPasteboard];
+        [pab setString:GET_A_NOT_NIL_STRING(weakSelf.model.walletId)];
+        [MBProgressHUD showSuccess:@"复制成功"];
     }
+    
+    
 }
 
 

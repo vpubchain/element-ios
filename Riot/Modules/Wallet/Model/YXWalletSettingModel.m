@@ -31,6 +31,7 @@
 - (NSMutableArray <YXWalletSettingModel *>*)getDeleteData:(BOOL)isWalletSetting{
     NSMutableArray *array = [NSMutableArray array];
     if (isWalletSetting) {
+        [array addObject:[self createModelWithName:@"钱包ID" andDes:@"" isCenter:YES andType:YXWalletSettingQBIDType]];
         [array addObject:[self createModelWithName:@"删除钱包" andDes:@"" isCenter:YES andType:YXWalletSettingSCQBType]];
         [array addObject:[self createModelWithName:@"同步数据（上次同步：2021-03-06）" andDes:@"" isCenter:YES andType:YXWalletSettingTBJLType]];
     }

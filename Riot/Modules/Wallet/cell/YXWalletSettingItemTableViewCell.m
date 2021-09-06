@@ -106,7 +106,7 @@
     self.desLabel.text = rowData.des;
     
     if (rowData.type == YXWalletSettingTBJLType) {
-        self.desLabel.text = [NSString stringWithFormat:@"上次同步 （%@）",rowData.walletModel.modifyDate];
+        self.titleLabel.text = [NSString stringWithFormat:@"上次同步 （%@）",rowData.walletModel.modifyDate];
     }
     
     if (rowData.isCenter) {

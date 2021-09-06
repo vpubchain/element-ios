@@ -19,6 +19,7 @@ typedef NS_ENUM(NSInteger , YXWalletSettingType) {
     YXWalletSettingBZFKType,        //帮助反馈
     YXWalletSettingSCQBType,        //删除钱包
     YXWalletSettingTBJLType,        //同步数据
+    YXWalletSettingQBIDType,        //钱包id
 };
 
 @interface YXWalletSettingPasswordModel : NSObject
