@@ -31,6 +31,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)walletSendConfirmPay;
 - (void)confirmPay;
 - (void)cancelPay;//取消交易
+//创建订单
+- (void)transactionCreate;
 @end
 
 NS_ASSUME_NONNULL_END

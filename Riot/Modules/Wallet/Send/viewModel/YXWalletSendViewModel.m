@@ -58,13 +58,20 @@
 
 //创建交易
 - (void)nextSendOperation{
-    YXWeakSelf
     
-    NSString *walletId = self.currentSelectModel.walletId;
+    //创建成功，验证密码没密码提醒用户去创建密码
+    if (![YXWalletPasswordManager sharedYXWalletPasswordManager].isHavePassword) {
+        [MBProgressHUD showSuccess:@"未设置密码请求前往设置"];
+        return;
+    }
+    
     NSString *acceptAddr = self.currentSelectModel.sendAddress;
     NSString *amount = self.currentSelectModel.sendCount;
-    NSString *message = self.currentSelectModel.sendInfo;
 
+    if (![Tool isAllNum:amount]){
+        [MBProgressHUD showSuccess:@"请输入正确的数字"];
+        return;
+    }
     
     if (amount.floatValue > self.currentSelectModel.balance) {
         [MBProgressHUD showSuccess:@"发送数量不能大于总数"];
@@ -81,6 +88,24 @@
         return;
     }
     
+    
+    if (self.showInputPasswordViewBlock) {
+        self.showInputPasswordViewBlock();
+    }
+    
+
+}
+
+//创建订单
+- (void)transactionCreate{
+    
+    YXWeakSelf
+    
+    NSString *walletId = self.currentSelectModel.walletId;
+    NSString *acceptAddr = self.currentSelectModel.sendAddress;
+    NSString *amount = self.currentSelectModel.sendCount;
+    NSString *message = self.currentSelectModel.sendInfo;
+
     [MBProgressHUD showMessage:@""];
     
     NSMutableDictionary *paramDict = [[NSMutableDictionary alloc]init];
@@ -106,8 +131,6 @@
     } failure:^(NSError * _Nonnull error) {
         [MBProgressHUD hideHUD];
     }];
-    
-
 }
 
 //展示密码输入框

@@ -84,7 +84,7 @@ extern NSString *const kAllCrashNotification;
         _textField.font = [UIFont fontWithName:@"PingFang SC" size: 15];
         _textField.textColor = UIColor51;
         _textField.delegate = self;
-        _textField.placeholder = @"输入备注信息（选填）";
+        _textField.placeholder = @"输入备注信息";
     }
     return _textField;
 }
@@ -148,7 +148,7 @@ extern NSString *const kAllCrashNotification;
 -(void)setupCellWithRowData:(YXWalletCashModel *)rowData{
     _rowData = rowData;
     
-    _desLabel.text = [NSString stringWithFormat:@"可兑换数量%@  %@",[NSString stringWithFormat:@"≈￥%.4f",rowData.walletModel.balance],rowData.walletModel.coinName];
+    _desLabel.text = [NSString stringWithFormat:@"可兑换数量%@  %@",[NSString stringWithFormat:@"%.4f",rowData.walletModel.balance],rowData.name];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{

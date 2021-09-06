@@ -77,10 +77,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    NSArray *matrixContacts = [MXKContactManager sharedManager].matrixContacts;
-//
-//    NSArray *localContacts = [MXKContactManager sharedManager].localContacts;
-//    NSArray *localContactsWithMethods = [MXKContactManager sharedManager].localContactsWithMethods;
+
     self.view.backgroundColor = kWhiteColor;
     [self.view addSubview:self.naviView];
     [self.view addSubview:self.tableView];

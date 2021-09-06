@@ -65,7 +65,15 @@
         }];
         
         [_viewModel setShowInputPasswordViewBlock:^{
-            [weakSelf showInputPasswordView];
+            if ([weakSelf.naviView.title isEqualToString:@"确认交易"]) {
+                //如果是发送交易的话，前面已经验证过密码，直接支付
+                [weakSelf.viewModel confirmPay];
+                
+            }else{
+                //处理待交易内容需要再次验证密码
+                [weakSelf showInputPasswordView];
+            }
+            
         }];
         
         [_viewModel setConfirmPaySuccessBlock:^{
@@ -171,16 +179,15 @@
     if (!_walletCancelPayView) {
         _walletCancelPayView = [[YXWalletPopupView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) type:WalletPopupViewCXZFType];
         YXWeakSelf
-        //继续支付
+        //继续取消
         _walletCancelPayView.cancelBlock = ^{
-            weakSelf.walletCancelPayView.hidden = YES;
-            [weakSelf showInputPasswordView];
+            [weakSelf.viewModel cancelPay];
         };
         
-        //取消支付
+        //确定离开
         _walletCancelPayView.determineBlock = ^{
             weakSelf.walletCancelPayView.hidden = YES;
-            [weakSelf.viewModel cancelPay];
+            [weakSelf.navigationController popViewControllerAnimated:YES];
        
         };
         

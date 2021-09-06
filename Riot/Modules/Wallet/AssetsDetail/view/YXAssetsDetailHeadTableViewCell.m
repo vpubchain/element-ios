@@ -86,7 +86,7 @@ extern NSString *const kYXJumpWalletAssetsDetail;
     if (!_countLabel) {
         _countLabel = [[UILabel alloc]init];
         _countLabel.numberOfLines = 0;
-        _countLabel.text = @"≈￥1,487.2816";
+        _countLabel.text = @"1,487.2816";
         _countLabel.font = [UIFont fontWithName:@"PingFang SC" size: 12];
         _countLabel.textColor = [UIColor whiteColor];
         _countLabel.textAlignment = NSTextAlignmentRight;
@@ -174,10 +174,10 @@ extern NSString *const kYXJumpWalletAssetsDetail;
 
 -(void)setupCellWithRowData:(YXWalletMyWalletRecordsItem *)rowData{
     _titleLabel.text = rowData.walletName;
-    _desLabel.text = [NSString stringWithFormat:@"≈￥%.4f",rowData.balance];//余额
+    _desLabel.text = [NSString stringWithFormat:@"%.4f",rowData.balance];//余额
     
-    _countLabel.text = [NSString stringWithFormat:@"≈￥%.2f",rowData.fundValue.floatValue * rowData.balance];
-    _numLabel.text = [NSString stringWithFormat:@"￥%@",rowData.fundValue];
+    _countLabel.text = [NSString stringWithFormat:@"%.2f",rowData.fundValue.floatValue * rowData.balance];
+    _numLabel.text = [NSString stringWithFormat:@"%@",rowData.fundValue];
 }
 
 @end

@@ -80,7 +80,7 @@
     if (!_numLabel) {
         _numLabel = [[UILabel alloc]init];
         _numLabel.numberOfLines = 0;
-        _numLabel.text = @"≈￥116973389.04";
+        _numLabel.text = @"116973389.04";
         _numLabel.font = [UIFont fontWithName:@"PingFang SC" size: 12];
         _numLabel.textColor = RGB(170, 170, 170);
         _numLabel.textAlignment = NSTextAlignmentRight;
@@ -153,7 +153,7 @@
     _desLabel.text = [NSString stringWithFormat:@"￥%@",rowData.fundValue];
     _countLabel.text = [NSString stringWithFormat:@"%@ %@",[NSString stringWithFormat:@"%.4f", rowData.balance],rowData.baseSymbol];//余额
     
-    _numLabel.text = [NSString stringWithFormat:@"≈￥%.2f",rowData.fundValue.floatValue * rowData.balance];
+    _numLabel.text = [NSString stringWithFormat:@"%.2f",rowData.fundValue.floatValue * rowData.balance];
     
     NSString *url = kImageURL(GET_A_NOT_NIL_STRING(rowData.image));
     YXWeakSelf

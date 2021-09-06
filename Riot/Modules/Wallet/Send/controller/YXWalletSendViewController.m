@@ -13,6 +13,8 @@
 #import "YXWalletContactViewController.h"
 #import "YXWalletConfirmationViewController.h"
 #import "TTVCodeScanViewController.h"
+#import "YXWalletInputPasswordView.h"
+
 @interface YXWalletSendViewController ()
 @property (nonatomic , strong)YXNaviView *naviView;
 @property (nonatomic , strong)YXWalletSendViewModel *viewModel;
@@ -21,9 +23,35 @@
 @property (nonatomic , strong)YXWalletAssetsSelectView *assetsSelectView;
 @property (nonatomic , strong)YXWalletContactViewController *contactVc;
 @property (nonatomic , strong)TTVCodeScanViewController *codeScanvc;
+@property (nonatomic , strong)YXWalletInputPasswordView *inputPasswordView;
 @end
 
 @implementation YXWalletSendViewController
+
+-(YXWalletInputPasswordView *)inputPasswordView{
+    if (!_inputPasswordView) {
+        _inputPasswordView = [[YXWalletInputPasswordView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        [_inputPasswordView showView:YES];
+        YXWeakSelf
+        [_inputPasswordView setEndEditBlock:^(NSString * _Nonnull password) {
+            //验证密码是否正确
+            NSString *md5Pw = [Tool stringToMD5:password];
+            NSString *currentMd5 = [YXWalletPasswordManager sharedYXWalletPasswordManager].passWord;
+            if ([md5Pw isEqualToString:currentMd5]) {
+                [weakSelf.viewModel transactionCreate];
+                [weakSelf.inputPasswordView showView:YES];
+            }else{
+                [MBProgressHUD showError:@"密码错误"];
+            }
+            
+            
+        }];
+    }
+    return _inputPasswordView;
+    
+}
+
+
 
 -(YXWalletContactViewController *)contactVc{
     if (!_contactVc) {
@@ -105,6 +133,13 @@
         [_viewModel setJumpScanViewBlock:^{
           
             [weakSelf.navigationController pushViewController:weakSelf.codeScanvc animated:YES];
+        }];
+        
+        [_viewModel setShowInputPasswordViewBlock:^{
+            [weakSelf.inputPasswordView removeFromSuperview];
+            weakSelf.inputPasswordView = nil;
+            [UIApplication.sharedApplication.keyWindow addSubview:weakSelf.inputPasswordView];
+            [weakSelf.inputPasswordView showView:NO];
         }];
     }
     return _viewModel;

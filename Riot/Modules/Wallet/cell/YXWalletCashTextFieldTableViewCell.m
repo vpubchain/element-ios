@@ -95,7 +95,7 @@ extern NSString *const kEndEditFieldTextNotification;
 
 -(void)setupCellWithRowData:(YXWalletCashModel *)rowData{
     _rowData = rowData;
-    self.titleLabel.text = rowData.walletModel.coinName;
+    self.titleLabel.text = rowData.name;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{

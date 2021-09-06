@@ -210,7 +210,7 @@
             break;
         case WalletPopupViewCXZFType:{//取消支付
             [self showPopupUIWith:@"取消支付" des:@"取消支付后，待处理交易将会被删除" State:WalletPopupViewWalletState center:NO];
-            _cancel.text = @"继续支付";
+            _cancel.text = @"继续取消";
             _determine.text = @"确认离开";
             
         }

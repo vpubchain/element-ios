@@ -59,7 +59,7 @@
     
     [array addObject:[self createModelWithCellName:@"YXWalletCashTextFieldTableViewCell" cellHeight:60 desc:@"" name:@"VCL" content:nil placedholder:@"输入兑换数量" showLine:YES bindingType:YXWalletAccountCardType selectCard:NO]];
     
-    [array addObject:[self createModelWithCellName:@"YXWalletCashNoteTableViewCell" cellHeight:160 desc:@"全部" name:@"备注" content:@"可兑换数量600.54 VCL" placedholder:@"输入备注信息（选填）" showLine:YES bindingType:YXWalletAccountCardType selectCard:NO]];
+    [array addObject:[self createModelWithCellName:@"YXWalletCashNoteTableViewCell" cellHeight:160 desc:@"全部" name:@"备注" content:@"可兑换数量600.54 VCL" placedholder:@"输入备注信息" showLine:YES bindingType:YXWalletAccountCardType selectCard:NO]];
     
     [array addObject:[self createModelWithCellName:@"YXLineTableViewCell" cellHeight:45 desc:nil name:nil content:nil placedholder:nil showLine:YES bindingType:YXWalletAccountCardType selectCard:NO]];
     
