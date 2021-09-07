@@ -19,6 +19,10 @@
 +(NSMutableArray*)string2aray:(NSString*)stringData;
 //是否为数字组成的串
 + (BOOL)isAllNum:(NSString *)port;
+#pragma mark 判断字符串是否为浮点数
++ (BOOL)isPureFloat:(NSString*)string;
+#pragma mark 判断是否为整形
++ (BOOL)isPureInt:(NSString*)string;
 //判断IP输入是否合法
 + (BOOL)isIPAddre:(const char*)p;
 //16位MD5加密方式

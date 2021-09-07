@@ -90,6 +90,19 @@
     return array;
 }
 
+#pragma mark 判断字符串是否为浮点数
++ (BOOL)isPureFloat:(NSString*)string{
+    NSScanner* scan = [NSScanner scannerWithString:string];
+    float val;
+    return[scan scanFloat:&val] && [scan isAtEnd];
+}
+#pragma mark 判断是否为整形
++ (BOOL)isPureInt:(NSString*)string{
+    NSScanner* scan = [NSScanner scannerWithString:string];
+    int val;
+    return [scan scanInt:&val] && [scan isAtEnd];
+}
+
 //是否为数字组成的串
 + (BOOL)isAllNum:(NSString *)port{
     unichar c;
