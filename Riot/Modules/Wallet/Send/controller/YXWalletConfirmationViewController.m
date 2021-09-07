@@ -181,6 +181,7 @@
         YXWeakSelf
         //继续取消
         _walletCancelPayView.cancelBlock = ^{
+            weakSelf.walletCancelPayView.hidden = YES;
             [weakSelf.viewModel cancelPay];
         };
         

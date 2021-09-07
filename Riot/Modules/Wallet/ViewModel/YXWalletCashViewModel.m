@@ -243,10 +243,11 @@
     NSString *amount = self.walletModel.cashCount;
 
     
-    if (![Tool isAllNum:amount]){
-        [MBProgressHUD showSuccess:@"请输入正确的数字"];
-        return;
-    }
+//    if (![Tool isAllNum:amount]){
+//        [MBProgressHUD showSuccess:@"请输入正确的数字"];
+//        return;
+//    }
+    
     
     if (amount.floatValue > self.walletModel.balance) {
         [MBProgressHUD showSuccess:@"兑现数量不能大于总数"];
@@ -259,6 +260,7 @@
     
 }
 
+
 - (void)confirmToCashAction{
     
     YXWeakSelf
@@ -269,10 +271,10 @@
     NSString *cashFees = self.walletModel.cashFee;
     NSString *message = self.walletModel.cashNoteInfo;
     
-    if (![Tool isAllNum:amount]){
-        [MBProgressHUD showSuccess:@"请输入正确的数字"];
-        return;
-    }
+//    if (![Tool isAllNum:amount]){
+//        [MBProgressHUD showSuccess:@"请输入正确的数字"];
+//        return;
+//    }
     
     if (amount.floatValue > self.walletModel.balance) {
         [MBProgressHUD showSuccess:@"兑现数量不能大于总数"];

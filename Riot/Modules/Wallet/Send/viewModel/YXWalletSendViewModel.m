@@ -68,10 +68,10 @@
     NSString *acceptAddr = self.currentSelectModel.sendAddress;
     NSString *amount = self.currentSelectModel.sendCount;
 
-    if (![Tool isAllNum:amount]){
-        [MBProgressHUD showSuccess:@"请输入正确的数字"];
-        return;
-    }
+//    if (![Tool isAllNum:amount]){
+//        [MBProgressHUD showSuccess:@"请输入正确的数字"];
+//        return;
+//    }
     
     if (amount.floatValue > self.currentSelectModel.balance) {
         [MBProgressHUD showSuccess:@"发送数量不能大于总数"];

@@ -150,6 +150,14 @@ extern NSString *const kEndEditFieldTextNotification;
     }
 }
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    
+    if ([self.rowData.name isEqualToString:@"发送数量"]) {
+        _textField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    }else if ([self.rowData.name isEqualToString:@"备注信息"]) {
+        _textField.keyboardType = UIKeyboardTypeDefault;
+    }
+}
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     
@@ -169,5 +177,6 @@ extern NSString *const kEndEditFieldTextNotification;
 - (void)endEditFieldTextNotification{
     [self.textField resignFirstResponder];
 }
+
 
 @end

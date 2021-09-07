@@ -46,6 +46,7 @@ extern NSString *const kEndEditFieldTextNotification;
         _textField.font = [UIFont fontWithName:@"PingFang SC" size: 20];
         _textField.textColor = UIColor51;
         _textField.delegate = self;
+        _textField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
         _textField.placeholder = @"输入兑换数量";
     }
     return _textField;
