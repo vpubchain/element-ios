@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)nextSendOperation;
 - (void)reloadNewData:(YXWalletMyWalletRecordsItem *)model;
 - (void)reloadContactData:(YXWalletMyWalletRecordsItem *)model;
-- (void)reloadConfirmationData:(YXWalletSendDataInfo *)model;
+- (void)reloadConfirmationData:(YXWalletSendDataInfo *)model andRecords:(YXWalletMyWalletRecordsItem *)records;
 - (void)walletSendConfirmPay;
 - (void)confirmPay;
 - (void)cancelPay;//取消交易

@@ -126,16 +126,21 @@
 }
 
 -(void)setupCellWithRowData:(YXWalletSendModel *)rowData{
-    self.titleLabel.text = [NSString stringWithFormat:@"%.4f",rowData.sendDataInfo.amount];
-    self.desLabel.text = [NSString stringWithFormat:@"%.2f%%",(rowData.sendDataInfo.fees * 100)];
+    self.titleLabel.text = [NSString stringWithFormat:@"%.4f %@",rowData.sendDataInfo.amount,rowData.currentSelectModel.baseSymbol];
+    
+    self.desLabel.text = [NSString stringWithFormat:@"%.2f",(rowData.sendDataInfo.amount * rowData.currentSelectModel.fundValue.floatValue)];
     if ([rowData.sendDataInfo.action isEqualToString:@"sent"]) {//发送
         _detailSendImage.image = [UIImage imageNamed:@"home_send"];
+        self.desLabel.hidden = NO;
     }else if ([rowData.sendDataInfo.action isEqualToString:@"received"]) {//接受
         _detailSendImage.image = [UIImage imageNamed:@"home_receive"];
+        self.desLabel.hidden = YES;
     }else if ([rowData.sendDataInfo.action isEqualToString:@"moved"]) {//内部转移
         _detailSendImage.image = [UIImage imageNamed:@"home_zizhuan"];
+        self.desLabel.hidden = YES;
     }else if ([rowData.sendDataInfo.action isEqualToString:@"pending"]) {//待处理
         _detailSendImage.image = [UIImage imageNamed:@"home_wait"];
+        self.desLabel.hidden = NO;
     }
 }
 

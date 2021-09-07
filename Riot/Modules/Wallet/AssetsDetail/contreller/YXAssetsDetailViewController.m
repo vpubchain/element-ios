@@ -133,6 +133,7 @@
         [_viewModel setTouchAssetsDetailItemBlock:^(YXAssetsDetailRecordsItem * _Nonnull model) {
 
             YXWalletConfirmationViewController *confirmatVc = [[YXWalletConfirmationViewController alloc]init];
+            confirmatVc.currentSelectModel = weakSelf.model;
             if ([model.action isEqualToString:@"pending"]) {//待处理
                 confirmatVc.naviTitle = @"待处理交易";
             }else{

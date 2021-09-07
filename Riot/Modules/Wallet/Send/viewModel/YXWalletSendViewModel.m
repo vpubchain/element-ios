@@ -243,7 +243,8 @@
 }
 
 
-- (void)reloadConfirmationData:(YXWalletSendDataInfo *)model{
+- (void)reloadConfirmationData:(YXWalletSendDataInfo *)model andRecords:(YXWalletMyWalletRecordsItem *)records{
+    YXWeakSelf
     self.sendDataInfo = model;
     NSMutableArray<SCETRowItem *> *rowItems = [NSMutableArray new];
     
@@ -251,6 +252,7 @@
     
     [editUIArray enumerateObjectsUsingBlock:^(YXWalletSendModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         obj.sendDataInfo = model;
+        obj.currentSelectModel = records;
         SCETRowItem *rowItem = [SCETRowItem rowItemWithRowData:obj cellClassString:obj.cellName];
         rowItem.cellHeight = obj.cellHeight;
         [rowItems addObject:rowItem];
@@ -264,7 +266,7 @@
     if (self.reloadData) {
         self.reloadData();
     }
-    YXWeakSelf
+    
     [self.delegate setBlockTableViewDidSelectRowAtIndexPath:^(UITableView * _Nonnull tableView, NSIndexPath * _Nonnull indexPath) {
         [weakSelf tableView:tableView didSelectRowAtIndexPath:indexPath];
     }];

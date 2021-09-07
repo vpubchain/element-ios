@@ -51,6 +51,7 @@ typedef NS_ENUM(NSInteger , YXWalletSendCellType) {
 @property (nonatomic , copy) NSString              * message;
 @property (nonatomic , assign) CGFloat              amount;
 @property (nonatomic , assign) CGFloat              fees;
+@property (nonatomic , copy) NSString              * fundValue;
 @property (nonatomic , copy) NSString              * coinDate;
 @property (nonatomic , assign) NSInteger              status;
 @property (nonatomic , assign) NSInteger              flag;

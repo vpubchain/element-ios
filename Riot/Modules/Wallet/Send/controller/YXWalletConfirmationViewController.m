@@ -236,7 +236,7 @@
         make.top.mas_equalTo(STATUS_AND_NAVIGATION_HEIGHT);
     }];
     
-    [self.viewModel reloadConfirmationData:self.sendDataInfo];
+    [self.viewModel reloadConfirmationData:self.sendDataInfo andRecords:self.currentSelectModel];
     self.proxy.sendViewModel = self.viewModel;
     self.eventProxy = self.proxy;
 }

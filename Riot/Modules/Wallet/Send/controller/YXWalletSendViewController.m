@@ -116,6 +116,7 @@
         
         [_viewModel setNextBlock:^(YXWalletSendDataInfo * _Nonnull model) {
             YXWalletConfirmationViewController *confirmatVc = [[YXWalletConfirmationViewController alloc]init];
+            confirmatVc.currentSelectModel = weakSelf.currentSelectModel;
             confirmatVc.sendDataInfo = model;
             [confirmatVc setReloadRecordData:^{
                 weakSelf.currentSelectModel.sendAddress = @"";

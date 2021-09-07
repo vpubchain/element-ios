@@ -109,6 +109,7 @@
         make.height.mas_equalTo(12);
         make.top.mas_equalTo(self.titleLabel.mas_bottom).offset(10);
         make.left.mas_equalTo(15);
+        make.right.mas_equalTo(-15);
     }];
     
     [self.tipLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
