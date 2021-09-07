@@ -47,22 +47,27 @@
     if (!_viewModel) {
         _viewModel = [[YXNodeDetailViewModel alloc]init];
         YXWeakSelf
+        //主节点
         [_viewModel setGetNodeInfoBlock:^{
             
-            if (weakSelf.isConfig) {
-                weakSelf.nodeConfigView.nodeText = [NSString stringWithFormat:@"IP:%@\n%@", weakSelf.viewModel.nodeInfoModel.ip, weakSelf.viewModel.nodeInfoModel.genkey];
-                weakSelf.noteInfo =  weakSelf.viewModel.nodeInfoModel;
-            }
+            weakSelf.nodeConfigView.nodeText = [NSString stringWithFormat:@"IP:%@\n%@", weakSelf.viewModel.nodeInfoModel.ip, weakSelf.viewModel.nodeInfoModel.genkey];
+            weakSelf.noteInfo =  weakSelf.viewModel.nodeInfoModel;
+
 
         }];
         
+        //质押交易
         [_viewModel setGetNodePledegBlock:^{
-            if (weakSelf.viewModel.pledegModel.data.count > 0) {
-                YXNodeConfigDataItem *model = weakSelf.viewModel.pledegModel.data.firstObject;
-                weakSelf.nodeConfigView.pledgeText = model.txid;
-                weakSelf.is_pledeg = YES;
-                weakSelf.configData = model;
+            
+            if (weakSelf.isConfig) {
+                if (weakSelf.viewModel.pledegModel.data.count > 0) {
+                    YXNodeConfigDataItem *model = weakSelf.viewModel.pledegModel.data.firstObject;
+                    weakSelf.nodeConfigView.pledgeText = model.txid;
+                    weakSelf.is_pledeg = YES;
+                    weakSelf.configData = model;
+                }
             }
+   
 
         }];
 
