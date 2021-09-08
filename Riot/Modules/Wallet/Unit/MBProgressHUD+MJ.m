@@ -39,7 +39,7 @@
   //  DLog(@"%@",NSStringFromCGRect(hud.frame));
     
     // 1秒之后再消失
-    [hud hide:YES afterDelay:2];
+    [hud hide:YES afterDelay:2.5];
 }
 
 #pragma mark 显示错误信息
