@@ -75,6 +75,8 @@
 
 
 - (void)reloadNewData{
+    [MBProgressHUD showMessage:@"" toView:self.view];
+    
     [self.viewModel reloadNewData:self.model];
 }
 
@@ -126,6 +128,14 @@
             configVc.nodeListModel = model;
             configVc.isConfig = model.configuration;
             [weakSelf.navigationController pushViewController:configVc animated:YES];
+        }];
+        
+        [_viewModel setSuccessBlock:^{
+            [MBProgressHUD hideAllHUDsForView:weakSelf.view animated:YES];
+        }];
+        
+        [_viewModel setErrorBlock:^{
+            [MBProgressHUD hideAllHUDsForView:weakSelf.view animated:YES];
         }];
 
     }

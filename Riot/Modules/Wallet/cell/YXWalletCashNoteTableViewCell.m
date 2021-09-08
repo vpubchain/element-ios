@@ -32,7 +32,7 @@ extern NSString *const kAllCrashNotification;
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc]init];
         _titleLabel.numberOfLines = 0;
-        _titleLabel.text = @"VCL";
+        _titleLabel.text = @"备注";
         _titleLabel.font = [UIFont fontWithName:@"PingFang SC" size: 20];
         _titleLabel.textColor = UIColor51;
         _titleLabel.textAlignment = NSTextAlignmentLeft;
@@ -84,7 +84,7 @@ extern NSString *const kAllCrashNotification;
         _textField.font = [UIFont fontWithName:@"PingFang SC" size: 15];
         _textField.textColor = UIColor51;
         _textField.delegate = self;
-        _textField.placeholder = @"输入备注信息";
+        _textField.placeholder = @"输入备注信息（选填）";
     }
     return _textField;
 }

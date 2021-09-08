@@ -12,7 +12,7 @@
 #import "YXNodeSelectTableViewCell.h"
 @implementation YXNodeListViewModel
 - (void)reloadNewData:(YXWalletMyWalletRecordsItem *)model{
-    
+ 
     YXWeakSelf
     NSMutableDictionary *paramDict = [[NSMutableDictionary alloc]init];
     [paramDict setObject:model.walletId forKey:@"walletId"];
@@ -25,9 +25,13 @@
                 [weakSelf setupListHeadData:detailList.data and:model];
             }
         }
-        
+        if (weakSelf.successBlock) {
+            weakSelf.successBlock();
+        }
     } failure:^(NSError * _Nonnull error) {
-            
+        if (weakSelf.errorBlock) {
+            weakSelf.errorBlock();
+        }
     }];
     
    

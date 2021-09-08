@@ -21,7 +21,7 @@
     
     self.currentPage = 1;
     [self.sectionItems removeAllObjects];
-    
+    [MBProgressHUD showMessage:@""];
     YXWeakSelf
     NSMutableDictionary *paramDict = [[NSMutableDictionary alloc]init];
     [paramDict setObject:WalletManager.userId forKey:@"userId"];
@@ -38,9 +38,9 @@
                 [weakSelf setupListHeadData:[NSArray array]];
             }
         }
-   
+        [MBProgressHUD hideHUD];
     } failure:^(NSError * _Nonnull error) {
-            
+        [MBProgressHUD hideHUD];
     }];
     
 }

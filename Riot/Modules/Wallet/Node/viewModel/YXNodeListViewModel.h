@@ -12,6 +12,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface YXNodeListViewModel : YXBaseViewModel
+@property (nonatomic , copy)void (^successBlock)(void);
+@property (nonatomic , copy)void (^errorBlock)(void);
 @property (nonatomic , copy)void (^touchNodeListForDetailBlock)(YXNodeListdata *model);
 @property (nonatomic , copy)void (^configNodeListForDetailBlock)(YXNodeListdata *model);
 @property (nonatomic , copy)void (^requestNodeSuccessBlock)(YXNodeListModel *model);
