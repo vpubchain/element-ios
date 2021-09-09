@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface YXWalletCashViewModel : YXBaseViewModel
 @property (nonatomic , copy)dispatch_block_t reloadData;
 @property (nonatomic , copy)dispatch_block_t failDataBlock;
+@property (nonatomic , copy)dispatch_block_t cashCreateFailDataBlock;
 @property (nonatomic , copy)dispatch_block_t showSelectAssetsViewBlock;
 @property (nonatomic , copy)dispatch_block_t showAddCardBlock;//选择收款方式
 @property (nonatomic , copy)dispatch_block_t showInputPasswordViewBlock;

@@ -289,12 +289,18 @@
             [weakSelf confirmToCash];
             
         }else{
-            [MBProgressHUD showError:model.msg];
+            
+            if (weakSelf.cashCreateFailDataBlock) {
+                weakSelf.cashCreateFailDataBlock();
+            }
         }
     
         
     } failure:^(NSError * _Nonnull error) {
         [MBProgressHUD showError:@"兑现失败"];
+        if (weakSelf.cashCreateFailDataBlock) {
+            weakSelf.cashCreateFailDataBlock();
+        }
     }];
 }
 

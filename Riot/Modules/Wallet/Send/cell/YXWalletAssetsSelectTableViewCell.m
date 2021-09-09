@@ -169,7 +169,7 @@
 
 -(void)setupCellWithRowData:(YXWalletSendModel *)rowData{
     
-    _titleLabel.text = rowData.currentSelectModel.coinName;
+    _titleLabel.text = rowData.currentSelectModel.walletName;
     CGFloat baliance = rowData.currentSelectModel.fundValue.floatValue * rowData.currentSelectModel.balance;
     _tipLabel.text = [NSString stringWithFormat:@"%@总余额：%@",rowData.currentSelectModel.coinName,[NSString stringWithFormat:@"%.2f",baliance]];
     
