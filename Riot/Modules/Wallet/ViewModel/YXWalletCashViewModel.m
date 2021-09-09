@@ -320,8 +320,6 @@
             if (weakSelf.confirmCashSuccessBlock) {
                 weakSelf.confirmCashSuccessBlock();
             }
-        }else{
-            [MBProgressHUD showError:model.msg];
         }
 
    

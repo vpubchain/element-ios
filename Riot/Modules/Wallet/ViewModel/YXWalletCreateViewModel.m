@@ -50,8 +50,6 @@
             if (complete) {
                 complete(responseObject);
             }
-        }else{
-            [MBProgressHUD showMessage:model.msg];
         }
 
         [MBProgressHUD hideHUD];

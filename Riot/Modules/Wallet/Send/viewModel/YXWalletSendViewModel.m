@@ -124,9 +124,8 @@
             if (weakSelf.nextBlock) {
                 weakSelf.nextBlock(model.data);
             }
-        }else{
-            [MBProgressHUD showError:model.msg];
         }
+        
         [MBProgressHUD hideHUD];
     } failure:^(NSError * _Nonnull error) {
         [MBProgressHUD hideHUD];
