@@ -120,6 +120,10 @@
                 [weakSelf.viewModel confirmToCashAction];
             }else{
                 [MBProgressHUD showError:@"密码错误"];
+                [weakSelf.inputPasswordView showView:YES];
+                [weakSelf.inputPasswordView removeFromSuperview];
+                weakSelf.inputPasswordView = nil;
+               
             }
             
             

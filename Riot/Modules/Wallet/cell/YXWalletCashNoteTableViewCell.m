@@ -33,7 +33,7 @@ extern NSString *const kAllCrashNotification;
         _titleLabel = [[UILabel alloc]init];
         _titleLabel.numberOfLines = 0;
         _titleLabel.text = @"备注";
-        _titleLabel.font = [UIFont fontWithName:@"PingFang SC" size: 20];
+        _titleLabel.font = [UIFont fontWithName:@"PingFang SC" size: 18];
         _titleLabel.textColor = UIColor51;
         _titleLabel.textAlignment = NSTextAlignmentLeft;
     }
@@ -125,7 +125,7 @@ extern NSString *const kAllCrashNotification;
     
     [self.titleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(15);
-        make.height.mas_equalTo(15);
+        make.height.mas_equalTo(20);
         make.top.mas_equalTo(self.desLabel.mas_bottom).offset(30);
     }];
     
