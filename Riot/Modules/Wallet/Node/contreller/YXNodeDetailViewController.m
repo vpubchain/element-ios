@@ -129,7 +129,7 @@
         [_viewModel setActivationNodeBlock:^{
             
             if ([weakSelf.nodeListModel.status isEqualToString:@"OUTPOINT_SPENT"]) {
-                [MBProgressHUD showSuccess:@"质押已花完"];
+                [MBProgressHUD showSuccess:@"质押已花费，不能激活！"];
                 return;
             }
             

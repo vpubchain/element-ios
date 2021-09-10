@@ -882,5 +882,53 @@ shouldChangeTextInRange:(NSRange)range
 
 }
 
++(NSString *) removeLastZero:(NSString *)strFloat
+{
+    const char* floatChars = [strFloat UTF8String];
+    NSUInteger length = [strFloat length];
+    NSUInteger zeroLength = 0;
+    NSInteger i = length - 1;
+    for(;i>0;i--){
+        if(floatChars[i] == '0') {
+            zeroLength++;
+        }else if(floatChars[i] == '.'){
+            i--;
+            break;
+        }
+    }
+    
+    NSString *strRet;
+    
+    strRet = [strFloat substringToIndex: length - zeroLength];
+    return strRet;
+}
+
++(NSString *) getFloatToString:(CGFloat )fnum
+{
+    NSString *strFloat = [NSString stringWithFormat:@"%.8f",fnum];
+    NSString *strRet = [Tool removeLastZero:strFloat];
+    return strRet;
+}
+
++(BOOL) isValidAmount:(NSString *)strFloat
+{
+    const char* floatChars = [strFloat UTF8String];
+    NSUInteger length = [strFloat length];
+    NSUInteger zeroLength = 0;
+    NSInteger i = length - 1;
+    for(;i>0;i--){
+        if(floatChars[i] == '.'){
+            i--;
+            break;
+        }else{
+            zeroLength++;
+        }
+    }
+    
+    if(zeroLength>8){
+        return NO;
+    }
+    return YES;
+}
 
 @end

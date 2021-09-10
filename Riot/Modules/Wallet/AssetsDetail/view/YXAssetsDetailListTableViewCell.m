@@ -176,7 +176,11 @@
         _titleLabel.text = @"内部转移";
         _titleIcon.image = [UIImage imageNamed:@"home_zizhuan"];
     }else if ([rowData.action isEqualToString:@"pending"]) {//待处理
-        _titleLabel.text = @"待处理";
+        if([rowData.type isEqualToString:@"2"]){
+            _titleLabel.text = @"待处理[兑现]";
+        } else {
+            _titleLabel.text = @"待处理";
+        }
         _titleIcon.image = [UIImage imageNamed:@"home_wait"];
     }
     

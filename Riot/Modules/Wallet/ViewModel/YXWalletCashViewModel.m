@@ -157,7 +157,7 @@
         if ([responseObject isKindOfClass:NSDictionary.class]) {
             YXWalletCashExampleModelName *myWalletModel = [YXWalletCashExampleModelName mj_objectWithKeyValues:responseObject];
             if (myWalletModel.status == 200) {
-                [weakSelf setupListHeadData:myWalletModel.data.records];
+                [weakSelf setupListHeadData:myWalletModel.data.records andModel:model];
             }
         }
    
@@ -180,7 +180,7 @@
         if ([responseObject isKindOfClass:NSDictionary.class]) {
             YXWalletCashExampleModelName *myWalletModel = [YXWalletCashExampleModelName mj_objectWithKeyValues:responseObject];
             if (myWalletModel.status == 200) {
-                [weakSelf setupListHeadData:myWalletModel.data.records];
+                [weakSelf setupListHeadData:myWalletModel.data.records andModel:model];
             }
         }
    
@@ -191,7 +191,7 @@
     }];
 }
 
-- (void)setupListHeadData:(NSArray *)array {
+- (void)setupListHeadData:(NSArray *)array andModel:(YXWalletMyWalletRecordsItem *)model {
     
     
     NSMutableArray<SCETRowItem *> *rowItems = [NSMutableArray new];
@@ -210,6 +210,7 @@
 
     //资产列表
     [array enumerateObjectsUsingBlock:^(YXWalletCashRecordsItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        obj.baseSymbol = model.baseSymbol;
         SCETRowItem *assetsItem = [SCETRowItem rowItemWithRowData:obj cellClassString:NSStringFromClass([YXWalletCashRecordTableViewCell class])];
         assetsItem.cellHeight =  obj.status == -1 ? 130 : 100;
         [rowItems addObject:assetsItem];
@@ -243,15 +244,25 @@
     
     NSString *amount = self.walletModel.cashCount;
 
-    
-    if (![Tool isPureFloat:amount] && ![Tool isPureInt:amount]){
-        [MBProgressHUD showSuccess:@"请输入正确的数字"];
-        return;
-    }
-    
-    
-    if (amount.floatValue > self.walletModel.balance) {
-        [MBProgressHUD showSuccess:@"兑现数量不能大于总数"];
+    if (amount.length == 0) {
+         [MBProgressHUD showSuccess:@"请输入兑换数量"];
+         return;
+     }
+
+     if (![Tool isPureFloat:amount] && ![Tool isPureInt:amount]){
+         [MBProgressHUD showSuccess:@"请输入正确的数字"];
+         return;
+     }
+
+     if ([Tool isPureFloat:amount]){
+         if(![Tool isValidAmount:amount]){
+             [MBProgressHUD showSuccess:@"小数位数不能够超过8位"];
+             return;
+         }
+     }
+  
+    if (amount.floatValue >= self.walletModel.balance) {
+        [MBProgressHUD showSuccess:@"兑现数量必须小于可兑现数量"];
         return;
     }
     

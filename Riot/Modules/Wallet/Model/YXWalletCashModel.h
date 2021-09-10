@@ -47,6 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * createDate;
 @property (nonatomic , assign) NSInteger              flag;
 @property (nonatomic , assign) NSInteger              status;
+@property (nonatomic , copy) NSString              * baseSymbol;
 
 @end
 

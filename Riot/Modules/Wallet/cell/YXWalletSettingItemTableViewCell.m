@@ -108,7 +108,10 @@
     if (rowData.type == YXWalletSettingTBJLType) {
         self.titleLabel.text = [NSString stringWithFormat:@"上次同步 （%@）",rowData.walletModel.modifyDate];
     }
-    
+    if (rowData.type == YXWalletSettingQBIDType) {
+        self.titleLabel.text = [NSString stringWithFormat:@"钱包id（%@）",rowData.walletModel.walletId];
+    }
+
     if (rowData.isCenter) {
         self.rightIcon.hidden = YES;
         [self.titleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {

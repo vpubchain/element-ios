@@ -68,27 +68,33 @@
     NSString *acceptAddr = self.currentSelectModel.sendAddress;
     NSString *amount = self.currentSelectModel.sendCount;
 
-    if (![Tool isPureFloat:amount] && ![Tool isPureInt:amount]){
-        [MBProgressHUD showSuccess:@"请输入正确的数字"];
-        return;
-    }
-    
-    if (amount.floatValue > self.currentSelectModel.balance) {
-        [MBProgressHUD showSuccess:@"发送数量不能大于总数"];
-        return;
-    }
+    if (amount.length == 0) {
+         [MBProgressHUD showSuccess:@"请输入发送数量"];
+         return;
+     }
+
+     if (![Tool isPureFloat:amount] && ![Tool isPureInt:amount]){
+         [MBProgressHUD showSuccess:@"请输入正确的数字"];
+         return;
+     }
+
+     if ([Tool isPureFloat:amount]){
+         if(![Tool isValidAmount:amount]){
+             [MBProgressHUD showSuccess:@"小数位数不能够超过8位"];
+             return;
+         }
+     }
+
+     if (amount.floatValue >= self.currentSelectModel.balance) {
+         [MBProgressHUD showSuccess:@"发送数量必须小于可用数量"];
+         return;
+     }
     
     if (acceptAddr.length == 0) {
         [MBProgressHUD showSuccess:@"请输入地址"];
         return;
     }
 
-    if (amount.length == 0) {
-        [MBProgressHUD showSuccess:@"请输入发送量"];
-        return;
-    }
-    
-    
     if (self.showInputPasswordViewBlock) {
         self.showInputPasswordViewBlock();
     }

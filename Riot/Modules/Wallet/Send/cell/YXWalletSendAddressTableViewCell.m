@@ -138,9 +138,9 @@ extern NSString *const kEndEditFieldTextNotification;
         make.left.mas_equalTo(16);
         make.height.mas_equalTo(15);
         make.top.mas_equalTo(30);
-        make.width.mas_equalTo(65);
+        make.width.mas_equalTo(140);
     }];
-    
+        
     [self.scanImage mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(20);
         make.height.mas_equalTo(20);
@@ -148,14 +148,13 @@ extern NSString *const kEndEditFieldTextNotification;
         make.centerY.mas_equalTo(self.titleLabel.mas_centerY);
     }];
     
-
     [self.addressImage mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(20);
         make.height.mas_equalTo(20);
         make.right.mas_equalTo(self.scanImage.mas_left).offset(-20);
         make.centerY.mas_equalTo(self.titleLabel.mas_centerY);
     }];
-    
+    self.addressImage.hidden = YES;
     
     [self.lineView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(-15);
@@ -171,7 +170,6 @@ extern NSString *const kEndEditFieldTextNotification;
         make.bottom.mas_equalTo(self.lineView.mas_top).offset(-10);
     }];
 
-    
 }
 
 -(void)setupCellWithRowData:(YXWalletSendModel *)rowData{
@@ -184,7 +182,7 @@ extern NSString *const kEndEditFieldTextNotification;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
-    if ([self.rowData.name isEqualToString:@"钱包地址"]) {
+    if ([self.rowData.name isEqualToString:@"钱包地址/手机号码"]) {
         self.rowData.currentSelectModel.sendAddress = textField.text;
     }
 }

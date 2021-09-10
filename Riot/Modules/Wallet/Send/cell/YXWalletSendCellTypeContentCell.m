@@ -133,7 +133,7 @@
     if ([rowData.title isEqualToString:@"接收地址"]) {
         self.desLabel.text = sendInfo.addr;
     }else if ([rowData.title isEqualToString:@"手续费"]) {
-        self.desLabel.text = [NSString stringWithFormat:@"%.2f%%",sendInfo.fees * 100];
+        self.desLabel.text = [NSString stringWithFormat:@"%f",sendInfo.fees];
     }else if ([rowData.title isEqualToString:@"交易单号"]) {
         if ([rowData.sendDataInfo.action isEqualToString:@"pending"]) {//待处理
             self.desLabel.text = sendInfo.txId;
