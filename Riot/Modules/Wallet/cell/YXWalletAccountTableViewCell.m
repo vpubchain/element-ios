@@ -10,6 +10,7 @@
 #import "YXWalletPaymentAccountModel.h"
 
 extern NSString *const kYXWalletAccountSettingDefault;
+extern NSString *const kYXWalletAccountBangdingDefault;
 
 @interface YXWalletAccountTableViewCell ()
 @property (nonatomic , strong)UIView *bgView;
@@ -31,10 +32,10 @@ extern NSString *const kYXWalletAccountSettingDefault;
         [_cancleBangding addTarget:self action:@selector(cancleBangdingAction) forControlEvents:UIControlEventTouchUpInside];
         [_cancleBangding setTitle:@"解除绑定" forState:UIControlStateNormal];
         _cancleBangding.titleLabel.textColor = UIColor.whiteColor;
-        [_cancleBangding setBackgroundColor:RGBA(255,160,0,1)];
+        [_cancleBangding setBackgroundColor:RGBA(0,0,0,0.3)];
         _cancleBangding.titleLabel.font = [UIFont systemFontOfSize:12];
         [_cancleBangding setTitleColor:kWhiteColor forState:UIControlStateNormal];
-        _cancleBangding.layer.cornerRadius = 15;
+        _cancleBangding.layer.cornerRadius = 10;
         _cancleBangding.layer.masksToBounds = YES;
         _cancleBangding.userInteractionEnabled = YES;
     }
@@ -42,7 +43,7 @@ extern NSString *const kYXWalletAccountSettingDefault;
 }
 
 - (void)cancleBangdingAction{
-    [self routerEventForName:kYXWalletAccountSettingDefault paramater:self.rowData];
+    [self routerEventForName:kYXWalletAccountBangdingDefault paramater:self.rowData];
 }
 
 -(UIView *)bgView{
@@ -82,11 +83,19 @@ extern NSString *const kYXWalletAccountSettingDefault;
        _desLabel = [[UILabel alloc]init];
        _desLabel.numberOfLines = 0;
        _desLabel.text = @"默认收款方式";
+       _desLabel.backgroundColor = RGBA(0,0,0,0.3);
+       _desLabel.layer.cornerRadius = 10;
+       _desLabel.layer.masksToBounds = YES;
        _desLabel.font = [UIFont fontWithName:@"PingFang SC" size: 12];
        _desLabel.textColor = [UIColor whiteColor];
-       _desLabel.textAlignment = NSTextAlignmentRight;
+       _desLabel.textAlignment = NSTextAlignmentCenter;
+       [_desLabel mm_addTapGestureWithTarget:self action:@selector(desLabelAction)];
    }
    return _desLabel;
+}
+
+- (void)desLabelAction{
+    [self routerEventForName:kYXWalletAccountSettingDefault paramater:self.rowData];
 }
 
 -(UILabel *)typeLabel{
@@ -165,12 +174,12 @@ extern NSString *const kYXWalletAccountSettingDefault;
     [self.desLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(18);
         make.right.mas_equalTo(-15);
-        make.width.mas_equalTo(80);
-        make.height.mas_equalTo(15);
+        make.width.mas_equalTo(100);
+        make.height.mas_equalTo(20);
     }];
     
     [self.cancleBangding mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(30);
+        make.height.mas_equalTo(20);
         make.width.mas_equalTo(100);
         make.top.mas_equalTo(self.desLabel.mas_bottom).offset(20);
         make.right.mas_equalTo(-15);

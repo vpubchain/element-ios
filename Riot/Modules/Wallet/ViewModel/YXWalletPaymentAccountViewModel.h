@@ -12,10 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YXWalletPaymentAccountViewModel : YXBaseViewModel
 @property (nonatomic , copy)dispatch_block_t reloadData;
-@property (nonatomic , copy)void (^settingDefaultSuccessBlock)(void);
+@property (nonatomic , copy)void (^settingDefaultSuccessBlock)(YXWalletPaymentAccountRecordsItem *model);
 @property (nonatomic , copy)void (^getDefaultAccountBlock)(YXWalletPaymentAccountRecordsItem *model);
 @property (nonatomic , copy)void (^settingAccountNotiBlock)(void);
 @property (nonatomic , copy)void (^touchSettingBlock)(YXWalletPaymentAccountRecordsItem *model);
+@property (nonatomic , copy)void (^selectAccountBlock)(YXWalletPaymentAccountRecordsItem *model);//选中当前账户
 @property (nonatomic , strong)YXWalletPaymentAccountModel *accountModel;
 - (void)reloadNewData;
 - (void)walletAccountSettingDefault:(YXWalletPaymentAccountRecordsItem *)model;

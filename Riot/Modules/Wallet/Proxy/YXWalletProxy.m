@@ -23,6 +23,7 @@ NSString *const kYXWalletSendNextAction = @"kYXWalletSendNextAction";
 NSString *const kYXWalletJumpContactView = @"kYXWalletJumpContactView";
 NSString *const kYXWalletJumpScanView = @"kYXWalletJumpScanView";
 NSString *const kYXWalletAccountSettingDefault = @"kYXWalletAccountSettingDefault";
+NSString *const kYXWalletAccountBangdingDefault = @"kYXWalletAccountBangdingDefault";
 NSString *const kYXNodeSelectConfig = @"kYXNodeSelectConfig";
 NSString *const kYXWalleBindingAccount = @"kYXWalleBindingAccount";
 NSString *const kYXWalletAddAccountSelectPhoto = @"kYXWalletAddAccountSelectPhoto";
@@ -68,6 +69,7 @@ NSString *const kYXWalletArmingFlagNode = @"kYXWalletArmingFlagNode";
             kYXWalletJumpContactView:[self createInvocationForSelector:@selector(jumpContactViewAction)],
             kYXWalletJumpScanView:[self createInvocationForSelector:@selector(jumpScanViewAction)],
             kYXWalletAccountSettingDefault:[self createInvocationForSelector:@selector(walletAccountSettingDefault:)],
+            kYXWalletAccountBangdingDefault:[self createInvocationForSelector:@selector(walletAccountBangdingDefault:)],
             kYXNodeSelectConfig:[self createInvocationForSelector:@selector(nodeSelectConfig:)],
             kYXWalleBindingAccount:[self createInvocationForSelector:@selector(walleBindingAccount)],
             kYXWalletAddAccountSelectPhoto:[self createInvocationForSelector:@selector(walletAddAccountSelectPhoto)],
@@ -172,8 +174,15 @@ NSString *const kYXWalletArmingFlagNode = @"kYXWalletArmingFlagNode";
     }
 }
 
-//解除绑定
+
+//设置默认账户
 - (void)walletAccountSettingDefault:(YXWalletPaymentAccountRecordsItem *)model{
+    [self.paymentAccountViewModel walletAccountSettingDefault:model];
+   
+}
+
+//解除绑定
+- (void)walletAccountBangdingDefault:(YXWalletPaymentAccountRecordsItem *)model{
     [self.paymentAccountViewModel walletAccountCancleBangding:model];
 }
 

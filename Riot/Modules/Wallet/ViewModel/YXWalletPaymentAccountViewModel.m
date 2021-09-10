@@ -113,10 +113,10 @@
     
     
     if ([rowItem.cellClassString isEqualToString:NSStringFromClass(YXWalletAccountTableViewCell.class)]) {
-
-        [self walletAccountSettingDefault:rowItem.rowData];
-
-
+        
+        if (self.selectAccountBlock) {
+            self.selectAccountBlock(rowItem.rowData);
+        }
     }
     
 }
@@ -138,11 +138,15 @@
     [paramDict setObject:model.ID forKey:@"id"];
     [NetWorkManager POST:kURL(@"/account/setting_default") parameters:paramDict success:^(id  _Nonnull responseObject) {
         [MBProgressHUD hideHUD];
-        [MBProgressHUD showSuccess:@"设置成功"];
-        if (weakSelf.settingDefaultSuccessBlock) {
-            weakSelf.settingDefaultSuccessBlock();
-        }
         
+        YXWalletNomalModel *Nomalmodel = [YXWalletNomalModel mj_objectWithKeyValues:responseObject];
+        if (Nomalmodel.status.intValue == 200) {
+            if (weakSelf.settingDefaultSuccessBlock) {
+                weakSelf.settingDefaultSuccessBlock(model);
+            }
+            [MBProgressHUD showSuccess:@"设置成功"];
+        }
+
         
     } failure:^(NSError * _Nonnull error) {
         [MBProgressHUD hideHUD];

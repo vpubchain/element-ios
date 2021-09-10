@@ -19,12 +19,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy)dispatch_block_t showAddCardBlock;//选择收款方式
 @property (nonatomic , copy)dispatch_block_t showInputPasswordViewBlock;
 @property (nonatomic , copy)dispatch_block_t confirmCashSuccessBlock;//确认兑现成功
-@property (nonatomic , assign)BOOL isHaveAccount;//是否有收款账户
 @property (nonatomic , strong)YXWalletMyWalletRecordsItem *model;
 - (void)reloadAddCardData;
 - (void)reloadRecordData:(YXWalletMyWalletRecordsItem *)model;
 - (void)reloadMoreRecordData:(YXWalletMyWalletRecordsItem *)model;
 - (void)getCurrentAcountData:(YXWalletMyWalletRecordsItem *)model;
+/**
+ model 为当前选择的账户model
+*/
+- (void)reloadNewData:(YXWalletPaymentAccountRecordsItem *)model;
 //确认兑现
 - (void)walletConfirmToCash;
 - (void)confirmToCashAction;

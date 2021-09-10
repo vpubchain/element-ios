@@ -81,8 +81,9 @@
         [_viewModel setShowAddCardBlock:^{
             YXWalletPaymentAccountViewController *addCard = [[YXWalletPaymentAccountViewController alloc]init];
             addCard.isCash = YES;
-            [addCard setSettingDefaultSuccessBlock:^{
-                [weakSelf.viewModel getCurrentAcountData:weakSelf.model];
+            
+            [addCard setSettingDefaultSuccessBlock:^(YXWalletPaymentAccountRecordsItem * _Nonnull model) {
+                [weakSelf.viewModel reloadNewData:model];
             }];
             
             [addCard setBackBlock:^{

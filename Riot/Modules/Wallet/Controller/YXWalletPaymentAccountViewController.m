@@ -7,7 +7,7 @@
 //
 
 #import "YXWalletPaymentAccountViewController.h"
-#import "YXWalletPaymentAccountViewModel.h"
+
 #import "YXWalletProxy.h"
 #import "YXWalletAddAccountViewController.h"
 #import "YXWalletAccountDeatilViewController.h"
@@ -94,11 +94,21 @@
             [weakSelf.navigationController pushViewController:detailVC animated:YES];
         }];
         
-        
-        [_viewModel setSettingDefaultSuccessBlock:^{
+        [_viewModel setSelectAccountBlock:^(YXWalletPaymentAccountRecordsItem * _Nonnull model) {
             if (weakSelf.isCash) {
                 if (weakSelf.settingDefaultSuccessBlock) {
-                    weakSelf.settingDefaultSuccessBlock();
+                    weakSelf.settingDefaultSuccessBlock(model);
+                }
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+            }else{
+                [weakSelf.viewModel reloadNewData];
+            }
+        }];
+        
+        [_viewModel setSettingDefaultSuccessBlock:^(YXWalletPaymentAccountRecordsItem * _Nonnull model) {
+            if (weakSelf.isCash) {
+                if (weakSelf.settingDefaultSuccessBlock) {
+                    weakSelf.settingDefaultSuccessBlock(model);
                 }
                 [weakSelf.navigationController popViewControllerAnimated:YES];
             }else{
