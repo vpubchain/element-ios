@@ -17,11 +17,11 @@
     if ([model.status isEqualToString:@"ENABLED"] || [model.status isEqualToString:@"PRE_ENABLED"]) {
         statusDes = @"正常运行";
     }else if ([model.status isEqualToString:@"NEW_START_REQUIRED"]){
-        statusDes = @"显示重新启动";
+        statusDes = @"重新激活";
     }else if ([model.status isEqualToString:@"POSE_BAN"]){
         statusDes = @"节点冲突";
     }else if ([model.status isEqualToString:@"OUTPOINT_SPENT"]){
-        statusDes = @"押已花费，禁止重新激活";
+        statusDes = @"质押已花费";
     }else{
         statusDes = @"节点掉线";
     }

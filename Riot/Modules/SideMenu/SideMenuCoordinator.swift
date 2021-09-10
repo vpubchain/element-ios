@@ -145,20 +145,37 @@ final class SideMenuCoordinator: SideMenuCoordinatorType {
         var phoneNum: String = ""
         let account = MXKAccountManager.shared().activeAccounts.first
         if account?.linkedPhoneNumbers.count == 0 {
-            MBProgressHUD.showSuccess("请前往设置添加手机号码")
-            return
+            account?.load3PIDs({
+                if account?.linkedPhoneNumbers.count == 0 {
+                    MBProgressHUD.showSuccess("请前往设置添加手机号码")
+                    return
+                }
+                phoneNum = MXKTools.readableMSISDN(account?.linkedPhoneNumbers.first)
+                if  phoneNum.count < 11 {
+                    MBProgressHUD.showSuccess("请前往设置添加手机号码")
+                    return
+                }
+               
+                let viewController = self.createWalletViewController()
+                
+                // Push view controller and dismiss side menu
+                self.sideMenuNavigationViewController.pushViewController(viewController, animated: true)
+            }, failure: { (error) -> Void in
+                MBProgressHUD.showSuccess("请前往设置添加手机号码")
+                return
+            })
+        } else {
+            phoneNum = MXKTools.readableMSISDN(account?.linkedPhoneNumbers.first)
+            if  phoneNum.count < 11 {
+                MBProgressHUD.showSuccess("请前往设置添加手机号码")
+                return
+            }
+           
+            let viewController = self.createWalletViewController()
+            
+            // Push view controller and dismiss side menu
+            self.sideMenuNavigationViewController.pushViewController(viewController, animated: true)
         }
-        
-        phoneNum = MXKTools.readableMSISDN(account?.linkedPhoneNumbers.first)
-        if  phoneNum.count < 10 {
-            MBProgressHUD.showSuccess("请前往设置添加手机号码")
-            return
-        }
-       
-        let viewController = self.createWalletViewController()
-        
-        // Push view controller and dismiss side menu
-        self.sideMenuNavigationViewController.pushViewController(viewController, animated: true)
     }
     
     private func showInviteFriends(from sourceView: UIView?) {

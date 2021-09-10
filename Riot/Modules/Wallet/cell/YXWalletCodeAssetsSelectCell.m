@@ -140,7 +140,7 @@
         }];
     }else if ([rowData isKindOfClass:YXWalletMyWalletRecordsItem.class]) {
         YXWalletMyWalletRecordsItem *model = (YXWalletMyWalletRecordsItem *)rowData;
-        _titleLabel.text = model.coinName;
+        _titleLabel.text = model.walletName;
         NSString *url = kImageURL(GET_A_NOT_NIL_STRING(model.image));
         YXWeakSelf
         [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:url] options:(SDWebImageDownloaderAllowInvalidSSLCertificates|SDWebImageDownloaderUseNSURLCache) progress:nil completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {

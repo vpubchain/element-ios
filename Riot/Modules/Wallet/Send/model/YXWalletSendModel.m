@@ -45,7 +45,7 @@
     [array addObject:[self createModelWithCellName:@"YXLineTableViewCell" cellHeight:15 cellType:YXWalletSendCellTypeLine desc:nil name:nil placedholder:nil title:nil content:nil]];
     [array addObject:[self createModelWithCellName:@"YXWalletAssetsSelectTableViewCell" cellHeight:90 cellType:YXWalletSendCellTypeSelect desc:@"VCL" name:@"资产种类" placedholder:@"VCL总余额：2000.00 VCL" title:nil content:nil]];
     [array addObject:[self createModelWithCellName:@"YXLineTableViewCell" cellHeight:15 cellType:YXWalletSendCellTypeLine desc:nil name:nil placedholder:nil title:nil content:nil]];
-    [array addObject:[self createModelWithCellName:@"YXWalletSendAddressTableViewCell" cellHeight:100 cellType:YXWalletSendCellTypeAddress desc:nil name:@"钱包地址" placedholder:@"请输入收款钱包地址" title:nil content:nil]];
+    [array addObject:[self createModelWithCellName:@"YXWalletSendAddressTableViewCell" cellHeight:100 cellType:YXWalletSendCellTypeAddress desc:nil name:@"钱包地址/手机号码" placedholder:@"请输入收款钱包地址/手机号码" title:nil content:nil]];
     [array addObject:[self createModelWithCellName:@"YXWalletSendTextFieldTableViewCell" cellHeight:100 cellType:YXWalletSendCellTypeTextField desc:@"（可用：1000 VCL）" name:@"发送数量" placedholder:@"请输入发送数量" title:nil content:nil]];
     [array addObject:[self createModelWithCellName:@"YXWalletSendTextFieldTableViewCell" cellHeight:100 cellType:YXWalletSendCellTypeTextField desc:@"（选填）" name:@"备注信息" placedholder:@"请输入备注信息" title:nil content:nil]];
     [array addObject:[self createModelWithCellName:@"YXWalletSendNextTableViewCell" cellHeight:110 cellType:YXWalletSendCellTypeNext desc:nil name:@"下一步" placedholder:nil title:nil content:nil]];

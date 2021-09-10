@@ -84,4 +84,8 @@
 
 
 + (NSInteger)returnColorWithBeginTime:(NSString *)beginTime widthEndTime:(NSString *)endTime ;
+
++(NSString *) removeLastZero:(NSString *)strFloat;
++(NSString *) getFloatToString:(CGFloat )fnum;
++(BOOL) isValidAmount:(NSString *)strFloat;
 @end

@@ -126,9 +126,13 @@
 }
 
 -(void)setupCellWithRowData:(YXWalletSendModel *)rowData{
-    self.titleLabel.text = [NSString stringWithFormat:@"%.4f %@",rowData.sendDataInfo.amount,rowData.currentSelectModel.baseSymbol];
+    self.titleLabel.text = [NSString stringWithFormat:@"%@ %@",[Tool getFloatToString:rowData.sendDataInfo.amount],rowData.currentSelectModel.baseSymbol];
     
-    self.desLabel.text = [NSString stringWithFormat:@"%.2f",(rowData.sendDataInfo.amount * rowData.currentSelectModel.fundValue.floatValue)];
+    if([rowData.sendDataInfo.action isEqualToString:@"pending"]) {
+        self.desLabel.text = [NSString stringWithFormat:@"≈￥%.2f",(rowData.sendDataInfo.amount * rowData.currentSelectModel.fundValue.floatValue)];
+    }else{
+        self.desLabel.text = @"";
+    }
     if ([rowData.sendDataInfo.action isEqualToString:@"sent"]) {//发送
         _detailSendImage.image = [UIImage imageNamed:@"home_send"];
         self.desLabel.hidden = NO;

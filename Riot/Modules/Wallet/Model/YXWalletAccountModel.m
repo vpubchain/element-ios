@@ -32,7 +32,9 @@
         [array addObject:[self createModelWithCellName:@"YXLineTableViewCell" cellHeight:15 cellType:YXWalletAccountCellLineType desc:@"" name:@"" placedholder:@"" showLine:NO]];
         
         [array addObject:[self createModelWithCellName:@"YXWalletAddAccountTextFieldCell" cellHeight:50 cellType:YXWalletAccountCellTextFieldType desc:@"" name:@"手机号码" placedholder:@"请输入银行预留手机号" showLine:YES]];
+        /*
         [array addObject:[self createModelWithCellName:@"YXWalletAddAccountVerificationCodeCell" cellHeight:50 cellType:YXWalletAccountCellVerificationCodeType desc:@"" name:@"验证码" placedholder:@"请输入验证码" showLine:NO]];
+        */
         
         [array addObject:[self createModelWithCellName:@"YXLineTableViewCell" cellHeight:60 cellType:YXWalletAccountCellLineType desc:@"" name:@"" placedholder:@"" showLine:NO]];
         

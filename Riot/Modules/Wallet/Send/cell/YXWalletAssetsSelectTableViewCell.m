@@ -75,7 +75,7 @@
     if (!_tipLabel) {
         _tipLabel = [[UILabel alloc]init];
         _tipLabel.numberOfLines = 0;
-        _tipLabel.text = @"VCL总余额：2000.00 VCL";
+        _tipLabel.text = @"VCL总余额：≈￥2000.00 VCL";
         _tipLabel.font = [UIFont fontWithName:@"PingFang SC" size: 12];
         _tipLabel.textColor = WalletColor;
         _tipLabel.textAlignment = NSTextAlignmentLeft;
@@ -171,7 +171,7 @@
     
     _titleLabel.text = rowData.currentSelectModel.walletName;
     CGFloat baliance = rowData.currentSelectModel.fundValue.floatValue * rowData.currentSelectModel.balance;
-    _tipLabel.text = [NSString stringWithFormat:@"%@总余额：%@",rowData.currentSelectModel.coinName,[NSString stringWithFormat:@"%.2f",baliance]];
+    _tipLabel.text = [NSString stringWithFormat:@"%@总余额：%@",rowData.currentSelectModel.coinName,[NSString stringWithFormat:@"≈￥%.2f",baliance]];
     
     NSString *url = kImageURL(GET_A_NOT_NIL_STRING(rowData.currentSelectModel.image));
     YXWeakSelf

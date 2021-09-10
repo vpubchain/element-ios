@@ -236,7 +236,7 @@
     
     _desLabel.text = rowData.message;
     _numLabel.text = rowData.createDate;
-    _countLabel.text = [NSString stringWithFormat:@"%.2f",rowData.amount];
+    _countLabel.text = [NSString stringWithFormat:@"%.4f %@",rowData.amount, GET_A_NOT_NIL_STRING(rowData.baseSymbol)];
     
 }
 

@@ -149,10 +149,10 @@
             [MBProgressHUD showSuccess:@"请输入手机号码"];
             return;
         }
-        if (vfCode.length == 0) {
+        /*if (vfCode.length == 0) {
             [MBProgressHUD showSuccess:@"请输入验证码"];
             return;
-        }
+        }*/
         
         [MBProgressHUD showMessage:@"添加中..."];
         

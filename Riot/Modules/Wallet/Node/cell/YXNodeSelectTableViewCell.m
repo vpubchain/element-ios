@@ -13,6 +13,7 @@ extern NSString *const kYXNodeSelectConfig;
 
 @interface YXNodeSelectTableViewCell ()
 @property (nonatomic , strong)UILabel *desLabel;
+@property (nonatomic , strong)UILabel *allLabel;
 @property (nonatomic , strong)UILabel *dropsLabel;
 @property (nonatomic , strong)UILabel *normalLabel;
 @property (nonatomic , strong)YXWalletMyWalletRecordsItem *rowData;
@@ -72,7 +73,25 @@ extern NSString *const kYXNodeSelectConfig;
     return _normalLabel;
 }
 
-
+-(UILabel *)allLabel{
+    if (!_allLabel) {
+        _allLabel = [[UILabel alloc]init];
+        _allLabel.numberOfLines = 0;
+        _allLabel.text = @"全部";
+        _allLabel.font = [UIFont fontWithName:@"PingFang SC" size: 13];
+        _allLabel.textColor = kWhiteColor;
+        _allLabel.textAlignment = NSTextAlignmentCenter;
+        _allLabel.layer.cornerRadius = 10;
+        _allLabel.layer.masksToBounds = YES;
+        _allLabel.backgroundColor = RGBA(238,238,238,1);
+        YXWeakSelf
+        [_allLabel addTapAction:^(UITapGestureRecognizer * _Nonnull sender) {
+            weakSelf.rowData.noteType = YXWalletNoteTypeConfig;
+            [weakSelf routerEventForName:kYXNodeSelectConfig paramater:weakSelf.rowData];
+        }];
+    }
+    return _allLabel;
+}
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
@@ -88,14 +107,15 @@ extern NSString *const kYXNodeSelectConfig;
     [self.contentView addSubview:self.desLabel];
     [self.contentView addSubview:self.dropsLabel];
     [self.contentView addSubview:self.normalLabel];
-    
+    [self.contentView addSubview:self.allLabel];
+
     [self.desLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(13);
         make.width.mas_equalTo(52);
         make.left.mas_equalTo(15);
         make.centerY.mas_equalTo(self.contentView.mas_centerY);
     }];
-    
+
     [self.dropsLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(20);
         make.width.mas_equalTo(70);
@@ -109,6 +129,14 @@ extern NSString *const kYXNodeSelectConfig;
         make.centerY.mas_equalTo(self.desLabel.mas_centerY);
         make.left.mas_equalTo(self.dropsLabel.mas_right).offset(10);
     }];
+
+    [self.allLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(20);
+        make.width.mas_equalTo(70);
+        make.centerY.mas_equalTo(self.desLabel.mas_centerY);
+        make.left.mas_equalTo(self.normalLabel.mas_right).offset(10);
+    }];
+
 }
 
 -(void)setupCellWithRowData:(YXWalletMyWalletRecordsItem *)rowData{
@@ -118,16 +146,22 @@ extern NSString *const kYXNodeSelectConfig;
         _dropsLabel.backgroundColor = RGBA(238,238,238,1);
         _normalLabel.textColor = UIColor153;
         _normalLabel.backgroundColor = RGBA(238,238,238,1);
+        _allLabel.textColor = UIColor153;
+        _allLabel.backgroundColor = RGBA(255,160,0,1);
     }else if (rowData.noteType == YXWalletNoteTypeNormal){
         _normalLabel.textColor = kWhiteColor;
         _normalLabel.backgroundColor = RGBA(255,160,0,1);
         _dropsLabel.textColor = UIColor153;
         _dropsLabel.backgroundColor = RGBA(238,238,238,1);
+        _allLabel.textColor = UIColor153;
+        _allLabel.backgroundColor = RGBA(238,238,238,1);
     }else if (rowData.noteType == YXWalletNoteTypeDrops){
         _normalLabel.textColor = UIColor153;
         _normalLabel.backgroundColor = RGBA(238,238,238,1);
         _dropsLabel.textColor = kWhiteColor;
         _dropsLabel.backgroundColor = RGBA(255,160,0,1);
+        _allLabel.textColor = UIColor153;
+        _allLabel.backgroundColor = RGBA(238,238,238,1);
     }
 }
 
