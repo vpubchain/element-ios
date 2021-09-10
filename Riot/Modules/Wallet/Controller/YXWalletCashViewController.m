@@ -84,6 +84,10 @@
             [addCard setSettingDefaultSuccessBlock:^{
                 [weakSelf.viewModel getCurrentAcountData:weakSelf.model];
             }];
+            
+            [addCard setBackBlock:^{
+                [weakSelf.viewModel getCurrentAcountData:weakSelf.model];
+            }];
             [weakSelf.navigationController pushViewController:addCard animated:YES];
         }];
 

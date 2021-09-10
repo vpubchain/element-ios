@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///收款账户
 @interface YXWalletPaymentAccountViewController : YXBaseViewController
 @property (nonatomic , copy)void (^settingDefaultSuccessBlock)(void);
+@property (nonatomic , copy)void (^backBlock)(void);
 @property (nonatomic , assign)BOOL isCash;//是否是兑现过来的
 
 @end

@@ -21,6 +21,7 @@
             YXWalletPaymentAccountModel *accountModel = [YXWalletPaymentAccountModel mj_objectWithKeyValues:responseObject];
             if (accountModel.status == 200) {
                 [weakSelf setupListHeadData:accountModel.data.records];
+                weakSelf.accountModel = accountModel;
             }
         }
    
@@ -113,12 +114,18 @@
     
     if ([rowItem.cellClassString isEqualToString:NSStringFromClass(YXWalletAccountTableViewCell.class)]) {
 
-        if (self.touchSettingBlock) {
-            self.touchSettingBlock(rowItem.rowData);
-        }
+        [self walletAccountSettingDefault:rowItem.rowData];
+
 
     }
     
+}
+
+//解除绑定
+- (void)walletAccountCancleBangding:(YXWalletPaymentAccountRecordsItem *)model{
+    if (self.touchSettingBlock) {
+        self.touchSettingBlock(model);
+    }
 }
 
 ///设置默认账户

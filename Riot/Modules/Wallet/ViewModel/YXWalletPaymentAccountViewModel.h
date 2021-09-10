@@ -16,8 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy)void (^getDefaultAccountBlock)(YXWalletPaymentAccountRecordsItem *model);
 @property (nonatomic , copy)void (^settingAccountNotiBlock)(void);
 @property (nonatomic , copy)void (^touchSettingBlock)(YXWalletPaymentAccountRecordsItem *model);
+@property (nonatomic , strong)YXWalletPaymentAccountModel *accountModel;
 - (void)reloadNewData;
 - (void)walletAccountSettingDefault:(YXWalletPaymentAccountRecordsItem *)model;
+- (void)walletAccountCancleBangding:(YXWalletPaymentAccountRecordsItem *)model;
 @end
 
 NS_ASSUME_NONNULL_END

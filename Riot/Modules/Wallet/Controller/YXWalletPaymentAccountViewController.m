@@ -11,6 +11,8 @@
 #import "YXWalletProxy.h"
 #import "YXWalletAddAccountViewController.h"
 #import "YXWalletAccountDeatilViewController.h"
+#import "YXWalletViewController.h"
+
 @interface YXWalletPaymentAccountViewController ()
 @property (nonatomic , strong)YXNaviView *naviView;
 @property (nonatomic , strong)YXWalletPaymentAccountViewModel *viewModel;
@@ -30,7 +32,29 @@
         _naviView.backgroundColor = UIColor.whiteColor;
         YXWeakSelf
         _naviView.backBlock = ^{
-            [weakSelf.navigationController popViewControllerAnimated:YES];
+           
+            if (weakSelf.viewModel.accountModel.data.records.count == 0) {
+
+                UINavigationController *navigationVC = weakSelf.navigationController;
+                UIViewController *currentVC;
+                for (UIViewController *vc in navigationVC.viewControllers) {
+                    if ([vc isKindOfClass:YXWalletViewController.class]) {
+                        currentVC = vc;
+                    }
+                }
+                if (currentVC) {
+                    [weakSelf.navigationController popToViewController:currentVC animated:YES];
+                }else{
+                    [weakSelf.navigationController popViewControllerAnimated:YES];
+                }
+                
+            }else{
+                //当前用户已经设置了收款账户
+                if (weakSelf.backBlock) {
+                    weakSelf.backBlock();
+                }
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+            }
         };
  
     }

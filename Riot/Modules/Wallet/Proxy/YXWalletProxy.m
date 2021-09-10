@@ -172,9 +172,9 @@ NSString *const kYXWalletArmingFlagNode = @"kYXWalletArmingFlagNode";
     }
 }
 
-//设置默认账户
+//解除绑定
 - (void)walletAccountSettingDefault:(YXWalletPaymentAccountRecordsItem *)model{
-    [self.paymentAccountViewModel walletAccountSettingDefault:model];
+    [self.paymentAccountViewModel walletAccountCancleBangding:model];
 }
 
 - (void)nodeSelectConfig:(YXWalletMyWalletRecordsItem *)model{

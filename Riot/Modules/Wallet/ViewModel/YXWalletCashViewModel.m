@@ -29,6 +29,7 @@
         _accountViewModel = [[YXWalletPaymentAccountViewModel alloc]init];
         YXWeakSelf
         [_accountViewModel setGetDefaultAccountBlock:^(YXWalletPaymentAccountRecordsItem * _Nonnull model) {
+            weakSelf.isHaveAccount = YES;
             [weakSelf reloadNewData:model];
         }];
         
