@@ -49,6 +49,9 @@
     [self.accountViewModel reloadNewData];
 }
 
+/**
+ model 为当前选择的账户model
+*/
 - (void)reloadNewData:(YXWalletPaymentAccountRecordsItem *)model{
     
     self.walletModel.accountId = model.ID;
@@ -58,7 +61,7 @@
     
     NSMutableArray<SCETRowItem *> *rowItems = [NSMutableArray new];
 
-    NSMutableArray <YXWalletCashModel *>*editUIArray = [self.cashViewModel getCellArray];
+    NSMutableArray <YXWalletCashModel *>*editUIArray = [self.cashViewModel getCellArray:self.walletModel];
     
     [editUIArray enumerateObjectsUsingBlock:^(YXWalletCashModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         obj.accountModel = model;

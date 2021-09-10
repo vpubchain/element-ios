@@ -92,7 +92,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString *content;
 @property (nonatomic , strong) YXWalletMyWalletRecordsItem *walletModel;
 @property (nonatomic , strong) YXWalletPaymentAccountRecordsItem *accountModel;
-- (NSMutableArray <YXWalletCashModel *>*)getCellArray;
+- (NSMutableArray <YXWalletCashModel *>*)getCellArray:(YXWalletMyWalletRecordsItem *)model;
 - (NSMutableArray <YXWalletCashModel *>*)getAddCardCellArray;
 @end
 
