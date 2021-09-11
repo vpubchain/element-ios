@@ -79,7 +79,7 @@
         [UIApplication.sharedApplication.keyWindow addSubview:self.assetsSelectView];
     }
     
-    if (!self.isFirstRequest) {
+    if (!self.isFirstRequest && ([YXWalletPasswordManager sharedYXWalletPasswordManager].passWord.length != 0)) {
         [self refreshHeaderAction];
     }
 }
@@ -166,8 +166,7 @@
     [super viewDidLoad];
 
     [self setupUI];
-    [self refreshHeaderAction];
-    [self.viewModel getAllCoinInfo];
+
     //接口验证密码是否存在
     [self.viewModel walletSecretCode];
     
@@ -251,12 +250,16 @@
             //检验成功，同事再次更新页面数据
             
             if (weakSelf.isCheckPassword) {
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [MBProgressHUD showMessage:@"" toView:weakSelf.view];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [weakSelf.viewModel.sectionItems removeAllObjects];
                     [weakSelf refreshHeaderAction];
                     [weakSelf.viewModel getAllCoinInfo];
                 });
        
+            }else{
+                [weakSelf refreshHeaderAction];
+                [weakSelf.viewModel getAllCoinInfo];
             }
 
         }];

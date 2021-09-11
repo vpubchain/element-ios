@@ -425,7 +425,7 @@
 //请求错误toast提示
 - (void)showRequestTipMessageWith:(NSDictionary *)responseObject{
     YXWalletNomalModel *model = [YXWalletNomalModel mj_objectWithKeyValues:responseObject];
-    if (model.status.intValue != 200) {
+    if (model.status.intValue != 200 && [YXWalletPasswordManager sharedYXWalletPasswordManager].passWord.length > 0) {
         [MBProgressHUD showError:model.msg];
     }
 }

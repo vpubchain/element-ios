@@ -20,7 +20,7 @@
 - (void)reloadNewData{
     
     self.currentPage = 1;
-    [self.sectionItems removeAllObjects];
+    
 
     YXWeakSelf
     NSMutableDictionary *paramDict = [[NSMutableDictionary alloc]init];
@@ -28,6 +28,8 @@
     [paramDict setObject:@(self.currentPage).stringValue forKey:@"currpage"];
     [paramDict setObject:@"20" forKey:@"pagesize"];
     [NetWorkManager GET:kURL(@"/wallet/all_wallet") parameters:paramDict success:^(id  _Nonnull responseObject) {
+        
+        [weakSelf.sectionItems removeAllObjects];
         
         if ([responseObject isKindOfClass:NSDictionary.class]) {
             YXWalletMyWalletModel *myWalletModel = [YXWalletMyWalletModel mj_objectWithKeyValues:responseObject];
