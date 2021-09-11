@@ -14,7 +14,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface YXWalletViewModel : YXBaseViewModel
 @property (nonatomic , strong)YXWalletCoinModel *coinModel;
 @property (nonatomic , copy)dispatch_block_t reloadData;
+@property (nonatomic , copy)dispatch_block_t reloadFaildData;
 @property (nonatomic , copy)dispatch_block_t showAddViewBlock;
+@property (nonatomic , copy)dispatch_block_t walletSecretCodeFaildBlock;
+@property (nonatomic , copy)dispatch_block_t checkPasswordSuccessBlock;
+@property (nonatomic , copy)dispatch_block_t checkPasswordFailedBlock;
 @property (nonatomic , copy)dispatch_block_t jumpSendEditDetailBlock;
 @property (nonatomic , copy)dispatch_block_t jumpReceiveCodeBlock;
 @property (nonatomic , copy)dispatch_block_t jumpCashVCDetailBlock;
@@ -27,6 +31,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)getJumpWalletCashDataWalleId:(NSString *)walletId
                             Complete:(void (^)(YXWalletMyWalletRecordsItem *walletModel))complete
                              failure:(void (^)(void))failure;
+///建议本地密码是否为最新密码
+- (void)checkLocalPassword:(NSString *)passWord;
 @end
 
 NS_ASSUME_NONNULL_END

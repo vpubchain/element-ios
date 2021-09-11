@@ -12,7 +12,7 @@
 
 + (instancetype)defaultConfig {
     YLPasswordInputViewConfigure *configure = [[YLPasswordInputViewConfigure alloc] init];
-    configure.isShow = YES;
+    configure.isShow = NO;
     configure.squareWidth = 42;
     configure.passwordNum = 6;
     configure.pointRadius = 18 * 0.5;

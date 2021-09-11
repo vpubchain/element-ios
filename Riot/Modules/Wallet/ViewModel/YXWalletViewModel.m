@@ -21,7 +21,7 @@
     
     self.currentPage = 1;
     [self.sectionItems removeAllObjects];
-    [MBProgressHUD showMessage:@""];
+
     YXWeakSelf
     NSMutableDictionary *paramDict = [[NSMutableDictionary alloc]init];
     [paramDict setObject:WalletManager.userId forKey:@"userId"];
@@ -38,9 +38,9 @@
                 [weakSelf setupListHeadData:[NSArray array]];
             }
         }
-        [MBProgressHUD hideHUD];
+       
     } failure:^(NSError * _Nonnull error) {
-        [MBProgressHUD hideHUD];
+     
     }];
     
 }
@@ -62,7 +62,9 @@
         }
    
     } failure:^(NSError * _Nonnull error) {
-            
+        if (weakSelf.reloadFaildData){
+            weakSelf.reloadFaildData();
+        }
     }];
 }
 
@@ -181,19 +183,58 @@
     
 }
 
+//检验后台用户是否保存过密码
 - (void)walletSecretCode{
-    
+    YXWeakSelf
     NSMutableDictionary *paramDict = [[NSMutableDictionary alloc]init];
     [paramDict setObject:WalletManager.userId forKey:@"userId"];
     [NetWorkManager GET:kURL(@"/wallet/secret_code") parameters:paramDict success:^(id  _Nonnull responseObject) {
         
         if ([responseObject isKindOfClass:NSDictionary.class]) {
             YXWalletPasswordModel *model = [YXWalletPasswordModel mj_objectWithKeyValues:responseObject];
-            [YXWalletPasswordManager sharedYXWalletPasswordManager].model = model;
+            if (model.status == 200) {
+                 [YXWalletPasswordManager sharedYXWalletPasswordManager].model = model;
+                //该用户已经设置过密码，检验本地密码是否正确
+                [weakSelf checkLocalPassword:GET_A_NOT_NIL_STRING([YXWalletPasswordManager sharedYXWalletPasswordManager].passWord)];
+                                
+            }else{
+                //用户从来都没设置过密码
+                if (weakSelf.walletSecretCodeFaildBlock){
+                    weakSelf.walletSecretCodeFaildBlock();
+                }
+            }
         }
    
     } failure:^(NSError * _Nonnull error) {
             
+    }];
+}
+
+///建议本地密码是否为最新密码
+- (void)checkLocalPassword:(NSString *)passWord{
+    YXWeakSelf
+    NSMutableDictionary *paramDict = [[NSMutableDictionary alloc]init];
+    [paramDict setObject:WalletManager.userId forKey:@"userId"];
+    [paramDict setObject:passWord forKey:@"password"];
+    [NetWorkManager POST:kURL(@"/wallet/confirm_password") parameters:paramDict success:^(id  _Nonnull responseObject) {
+        YXWalletNomalModel *nomalModel = [YXWalletNomalModel mj_objectWithKeyValues:responseObject];
+        
+        if (nomalModel.status.intValue == 200) {
+            if (weakSelf.checkPasswordSuccessBlock) {
+                weakSelf.checkPasswordSuccessBlock();
+            }
+            //每次验证成功都需要更新本地密码
+            [YXWalletPasswordManager sharedYXWalletPasswordManager].updatepassWord = passWord;
+        }else {
+            if (weakSelf.checkPasswordFailedBlock) {
+                weakSelf.checkPasswordFailedBlock();
+            }
+        }
+        
+    } failure:^(NSError * _Nonnull error) {
+        if (weakSelf.checkPasswordFailedBlock) {
+            weakSelf.checkPasswordFailedBlock();
+        }
     }];
 }
 
