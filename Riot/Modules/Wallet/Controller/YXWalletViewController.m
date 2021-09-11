@@ -276,6 +276,12 @@
 
 - (BOOL)showWalletAddView{
     BOOL show = NO;
+    
+    if (self.viewModel.myWalletModel.data.records.count == 0) {
+        [MBProgressHUD showSuccess:@"请先添加钱包"];
+        show = YES;
+    }
+    
     if (self.viewModel.coinModel.data.count == 0) {
         [MBProgressHUD showSuccess:@"请先添加资产"];
         self.walletAddView.hidden = NO;
