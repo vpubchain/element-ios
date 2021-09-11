@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YXWalletViewModel : YXBaseViewModel
 @property (nonatomic , strong)YXWalletCoinModel *coinModel;
+@property (nonatomic , strong)YXWalletMyWalletModel *myWalletModel;
 @property (nonatomic , copy)dispatch_block_t reloadData;
 @property (nonatomic , copy)dispatch_block_t reloadFaildData;
 @property (nonatomic , copy)dispatch_block_t showAddViewBlock;

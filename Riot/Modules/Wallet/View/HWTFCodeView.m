@@ -18,7 +18,7 @@
 @property (nonatomic, weak) UIControl *maskView;
 
 @property (nonatomic, strong) NSMutableArray<UILabel *> *labels;
-
+@property (nonatomic, strong) NSMutableArray<UIView *> *Views;
 @property (nonatomic, strong) NSMutableArray<UIView *> *lines;
 
 @end
@@ -44,7 +44,7 @@
     
     self.labels = @[].mutableCopy;
     self.lines = @[].mutableCopy;
-    
+    self.Views  = @[].mutableCopy;
     UITextField *textField = [[UITextField alloc] init];
     textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     textField.keyboardType = UIKeyboardTypeNumberPad;
@@ -70,8 +70,21 @@
         label.textAlignment = NSTextAlignmentCenter;
         label.textColor = RGBA(221, 221, 221, 1);
         label.font = [UIFont fontWithName:@"PingFangSC-Regular" size:20.0];
+        UIView *view = [[UIView alloc]init];
+        view.backgroundColor = UIColor.blackColor;
+        view.layer.cornerRadius = 10;
+        view.clipsToBounds = YES;
+        view.hidden = YES;
+        [label addSubview:view];
+        [view mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.width.height.mas_equalTo(20);
+            make.centerX.mas_equalTo(label.mas_centerX);
+            make.centerY.mas_equalTo(label.mas_centerY);
+        }];
         [self addSubview:label];
         [self.labels addObject:label];
+        [self.Views addObject:view];
+        
     }
     
     for (NSInteger i = 0; i < self.itemCount; i++)
@@ -114,6 +127,23 @@
     if (textField.text.length > self.itemCount) {
         textField.text = [textField.text substringWithRange:NSMakeRange(0, self.itemCount)];
     }
+    
+    [self.Views enumerateObjectsUsingBlock:^(UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+       
+        obj.hidden = YES;
+        
+    }];
+    
+    [self.Views enumerateObjectsUsingBlock:^(UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+       
+        for (int i =0; i < [textField.text length]; i++)
+        {
+            if (i == idx) {
+                obj.hidden = NO;
+            }
+        }
+        
+    }];
     
     for (int i = 0; i < self.itemCount; i++)
     {
