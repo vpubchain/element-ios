@@ -34,6 +34,7 @@ singleton_interface(YXWalletPasswordManager)
 @property (nonatomic , copy) NSString *phomeNum;
 @property (nonatomic , copy) NSString *userId;
 @property (nonatomic , copy) NSString *passWord;//获取用户密码
+@property (nonatomic , copy) NSString *updatepassWord;
 @end
 
 NS_ASSUME_NONNULL_END

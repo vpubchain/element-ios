@@ -20,7 +20,7 @@
 #import "YXWalletAccountModel.h"
 #import <AFNetworking.h>
 #import "YXWalletAssetsSelectView.h"
-
+#import "YXWalletSettingPasswordView.h"
 @interface YXWalletViewController ()
 @property (nonatomic , strong)YXNaviView *naviView;
 @property (nonatomic , strong)UITableView *tableView;
@@ -29,9 +29,44 @@
 @property (nonatomic , strong)YXWalletProxy *proxy;
 @property (nonatomic , strong)YXWalletAssetsSelectView *assetsSelectView;
 @property (nonatomic , assign)BOOL isFirstRequest;
+@property (nonatomic , strong)YXWalletSettingPasswordView *verifyPasswordView;//验证密码
+@property (nonatomic , assign)BOOL isCheckPassword;//是否为检验密码
+@property (nonatomic , assign)BOOL isNeverSettingPassword;//重来都没设置过密码
 @end
 
 @implementation YXWalletViewController
+
+-(YXWalletSettingPasswordView *)verifyPasswordView{
+    if (!_verifyPasswordView) {
+        _verifyPasswordView = [[YXWalletSettingPasswordView alloc]init];
+        _verifyPasswordView.title = @"验证钱包密码";
+        _verifyPasswordView.des = @"请输入当前钱包密码完成身份验证";
+        _verifyPasswordView.nextText = @"验证密码";
+        YXWeakSelf
+        _verifyPasswordView.touchBlock = ^{
+            
+  
+            if (weakSelf.verifyPasswordView.password.length < 6) {
+                weakSelf.verifyPasswordView.showError = YES;
+                weakSelf.verifyPasswordView.error = @"输入密码长度不足";
+                //这里还需要验证之前的密码是否正确
+                
+                return;
+            }
+            
+            weakSelf.isCheckPassword = YES;
+           
+            NSString *md5Pw = [Tool stringToMD5:weakSelf.verifyPasswordView.password];
+           
+            [weakSelf.viewModel checkLocalPassword:md5Pw];
+
+        };
+        
+        weakSelf.verifyPasswordView.hidden = YES;
+    }
+    return _verifyPasswordView;
+}
+
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -45,13 +80,22 @@
     }
     
     if (!self.isFirstRequest) {
-        [self.viewModel reloadNewData];
+        [self refreshHeaderAction];
     }
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.navigationController.navigationBar.hidden = NO;
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    //检查本地密码是否存在
+    if (self.isNeverSettingPassword) {
+        [self checkPassWord];
+    }
+   
 }
 
 -(YXWalletAddView *)walletAddView{
@@ -76,7 +120,7 @@
         YXWeakSelf
         [_assetsSelectView setSelectAssetsBlock:^(YXWalletMyWalletRecordsItem * _Nonnull model) {
             [weakSelf jumpCashDetailWithWalletID:model.walletId];
-         
+            
         }];
     }
     return _assetsSelectView;
@@ -120,10 +164,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     [self setupUI];
-    [self.viewModel reloadNewData];
+    [self refreshHeaderAction];
     [self.viewModel getAllCoinInfo];
+    //接口验证密码是否存在
     [self.viewModel walletSecretCode];
+    
     self.proxy.walletViewModel = self.viewModel;
     self.eventProxy = self.proxy;
 }
@@ -135,6 +182,14 @@
     }];
     [self.view addSubview:self.naviView];
     self.isFirstRequest = YES;
+    
+    [self.view addSubview:self.verifyPasswordView];
+    [self.verifyPasswordView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.offset(0);
+        make.height.mas_equalTo(260);
+        make.top.mas_equalTo(STATUS_AND_NAVIGATION_HEIGHT + 12);
+    }];
+
 }
 
 -(YXWalletViewModel *)viewModel{
@@ -142,12 +197,17 @@
         _viewModel = [[YXWalletViewModel alloc]init];
         YXWeakSelf
         [_viewModel setReloadData:^{
+            [MBProgressHUD hideAllHUDsForView:weakSelf.view animated:YES];
             weakSelf.isFirstRequest = NO;
             weakSelf.tableView.dataSource = weakSelf.viewModel.dataSource;
             weakSelf.tableView.delegate = weakSelf.viewModel.delegate;
             [weakSelf.tableView reloadData];
             [weakSelf.tableView.mj_header endRefreshing];
             [weakSelf.tableView.mj_footer endRefreshing];
+        }];
+        
+        [_viewModel setReloadFaildData:^{
+            [MBProgressHUD hideAllHUDsForView:weakSelf.view animated:YES];
         }];
         
         [_viewModel setSelectIndexBlock:^(YXWalletMyWalletRecordsItem *model) {
@@ -161,7 +221,7 @@
             weakSelf.walletAddView.hidden = NO;
             weakSelf.walletAddView.coinModel = weakSelf.viewModel.coinModel;
         }];
-
+        
         [_viewModel setJumpSendEditDetailBlock:^{
             
             if ([weakSelf showWalletAddView]) return;
@@ -184,7 +244,32 @@
             weakSelf.assetsSelectView.hidden = NO;
             
         }];
-         
+        
+        [_viewModel setCheckPasswordSuccessBlock:^{
+            weakSelf.verifyPasswordView.hidden = YES;
+            weakSelf.tableView.hidden = NO;
+            //检验成功，同事再次更新页面数据
+            
+            if (weakSelf.isCheckPassword) {
+                [weakSelf.viewModel.sectionItems removeAllObjects];
+                [weakSelf refreshHeaderAction];
+                [weakSelf.viewModel getAllCoinInfo];
+            }
+
+        }];
+        
+        //用户设置过密码但是，和本地保存不一致，需要用户更新本地密码
+        [_viewModel setCheckPasswordFailedBlock:^{
+            weakSelf.verifyPasswordView.hidden = NO;
+            weakSelf.tableView.hidden = YES;
+        }];
+        
+        //用户从来都没设置过密码
+        [_viewModel setWalletSecretCodeFaildBlock:^{
+            weakSelf.isNeverSettingPassword = YES;
+            [weakSelf checkPassWord];
+        }];
+        
     }
     return _viewModel;
 }
@@ -222,18 +307,19 @@
         _tableView.separatorColor = [UIColor clearColor];
         _tableView.showsVerticalScrollIndicator = YES;
         if (@available(iOS 11.0, *)) {
-               _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+            _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:NSStringFromClass(UITableViewCell.class)];
         
         _tableView.mj_header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshHeaderAction)];
         _tableView.mj_footer = [MJRefreshBackFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshFooterAction)];
-
+        
     }
     return _tableView;
 }
 
 - (void)refreshHeaderAction{
+    [MBProgressHUD showMessage:@"" toView:self.view];
     [self.viewModel reloadNewData];
 }
 
@@ -241,5 +327,27 @@
     [self.viewModel reloadMoreData];
 }
 
+- (void)checkPassWord{
+
+    //检测用户是否设置密码
+    if ([YXWalletPasswordManager sharedYXWalletPasswordManager].passWord.length == 0) {
+        YXWeakSelf
+        NSString *alertBody = [NSString stringWithFormat:@"欢迎使用链聊钱包，在使用钱包前，请先设置支付密码"];
+        [TTVAlertView initWithTitle:@"提示" message:alertBody cancleButtonTitle:@"暂不设置" OtherButtonsArray:@[@"立即设置"]
+                       clickAtIndex:^(NSInteger buttonAtIndex) {
+            
+            if (buttonAtIndex == 0) {
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+            }
+            
+            if (buttonAtIndex == 1) {
+                YXWalletSettingViewController *walletSettingVC = [[YXWalletSettingViewController alloc]init];
+                [weakSelf.navigationController pushViewController:walletSettingVC animated:YES];
+            }
+            
+        }];
+        
+    }
+}
 
 @end
