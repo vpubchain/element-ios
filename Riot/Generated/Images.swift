@@ -195,6 +195,7 @@ internal enum Asset {
     internal static let addQR = ImageAsset(name: "add_QR")
     internal static let backBBlack = ImageAsset(name: "back_b_black")
     internal static let backW = ImageAsset(name: "back_w")
+    internal static let bankCard = ImageAsset(name: "bank_card")
     internal static let bankcardDetails = ImageAsset(name: "bankcard_details")
     internal static let cardAdd = ImageAsset(name: "card_add")
     internal static let closeRed = ImageAsset(name: "close_red")
