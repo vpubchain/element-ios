@@ -60,3 +60,10 @@
 }
 
 @end
+
+
+@implementation YXNodeConfigDetailModel
+@end
+
+@implementation YXNodeConfigModel
+@end

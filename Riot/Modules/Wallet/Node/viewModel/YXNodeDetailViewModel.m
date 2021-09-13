@@ -9,7 +9,7 @@
 #import "YXNodeDetailViewModel.h"
 #import "YXNodeDetailHeadTableViewCell.h"
 #import "YXNodeDetailFooterTableViewCell.h"
-#import "YXNodeDetailModel.h"
+
 #import "YXNodeArmingFlagTableViewCell.h"
 
 @interface YXNodeDetailViewModel ()
@@ -153,6 +153,33 @@
         [MBProgressHUD hideHUD];
     } failure:^(NSError * _Nonnull error) {
         [MBProgressHUD hideHUD];
+    }];
+}
+
+///获取节点的配置信息
+- (void)getNodeConfig:(YXNodeListdata *)model{
+    YXWeakSelf
+    NSMutableDictionary *paramDict = [[NSMutableDictionary alloc]init];
+    [paramDict setObject:GET_A_NOT_NIL_STRING(model.walletId) forKey:@"walletId"];
+    [NetWorkManager GET:kURL(@"/node/config") parameters:paramDict success:^(id  _Nonnull responseObject) {
+        
+        YXNodeConfigModel *nomalModel = [YXNodeConfigModel mj_objectWithKeyValues:responseObject];
+           
+        if (nomalModel.status.intValue == 200) {
+            if (weakSelf.getNodeConfigSuccessBlokc) {
+                weakSelf.getNodeConfigSuccessBlokc(nomalModel.data);
+            }
+        }else{
+            if (weakSelf.getNodeConfigFaildBlokc) {
+                weakSelf.getNodeConfigFaildBlokc();
+            }
+        }
+        
+    } failure:^(NSError * _Nonnull error) {
+            
+        if (weakSelf.getNodeConfigFaildBlokc) {
+            weakSelf.getNodeConfigFaildBlokc();
+        }
     }];
 }
 

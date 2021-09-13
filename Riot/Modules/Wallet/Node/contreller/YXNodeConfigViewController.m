@@ -70,6 +70,27 @@
    
 
         }];
+        
+        
+        [_viewModel setGetNodeConfigSuccessBlokc:^(YXNodeConfigDetailModel * _Nonnull model) {
+           
+            if (model.ip.length > 0) {
+                weakSelf.nodeConfigView.nodeText = [NSString stringWithFormat:@"IP:%@",model.ip];
+            }
+            
+            if (model.txId.length > 0) {
+                weakSelf.nodeConfigView.pledgeText = model.txId;
+            }else{
+                [weakSelf.viewModel getPledegTxData:weakSelf.nodeListModel];
+                [weakSelf.viewModel getNodeInfo:weakSelf.nodeListModel];
+            }
+       
+        }];
+        
+        [_viewModel setGetNodeConfigFaildBlokc:^{
+                [weakSelf.viewModel getPledegTxData:weakSelf.nodeListModel];
+                [weakSelf.viewModel getNodeInfo:weakSelf.nodeListModel];
+        }];
 
     }
     return _viewModel;
@@ -161,8 +182,9 @@
         make.top.mas_equalTo(self.naviView.mas_bottom);
     }];
     
-    [self.viewModel getPledegTxData:self.nodeListModel];
-    [self.viewModel getNodeInfo:self.nodeListModel];
+    
+    [self.viewModel getNodeConfig:self.nodeListModel];
+  
 }
 
 - (void)setIs_pledeg:(BOOL)is_pledeg{
