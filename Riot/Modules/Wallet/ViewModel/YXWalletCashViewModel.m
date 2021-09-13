@@ -267,7 +267,7 @@
          }
      }
   
-    if (amount.floatValue >= self.walletModel.balance) {
+    if (amount.doubleValue >= self.walletModel.balance) {
         [MBProgressHUD showSuccess:@"兑现数量必须小于可兑现数量"];
         return;
     }
