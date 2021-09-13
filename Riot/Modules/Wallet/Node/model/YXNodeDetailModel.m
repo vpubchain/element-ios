@@ -31,7 +31,7 @@
     [array addObject:[self createModelWithCellName:@"YXNodeDetailTableViewCell" cellHeight:52 desc:model.payee title:@"收益地址" showLine:YES]];
     [array addObject:[self createModelWithCellName:@"YXNodeDetailTableViewCell" cellHeight:52 desc:model.genkey title:@"质押信息" showLine:YES]];
     [array addObject:[self createModelWithCellName:@"YXNodeDetailTableViewCell" cellHeight:52 desc:model.ip title:@"节点IP" showLine:YES]];
-    [array addObject:[self createModelWithCellName:@"YXNodeDetailTableViewCell" cellHeight:52 desc:model.lastSendTime title:@"节点到期时间" showLine:YES]];
+    [array addObject:[self createModelWithCellName:@"YXNodeDetailTableViewCell" cellHeight:52 desc:model.maturityTime title:@"节点到期时间" showLine:YES]];
     return array;
 }
 

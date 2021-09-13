@@ -85,7 +85,7 @@
          }
      }
 
-     if (amount.floatValue >= self.currentSelectModel.balance) {
+     if (amount.doubleValue >= self.currentSelectModel.balance) {
          [MBProgressHUD showSuccess:@"发送数量必须小于可用数量"];
          return;
      }

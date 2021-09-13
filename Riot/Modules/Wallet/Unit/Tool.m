@@ -888,18 +888,24 @@ shouldChangeTextInRange:(NSRange)range
     NSUInteger length = [strFloat length];
     NSUInteger zeroLength = 0;
     NSInteger i = length - 1;
+    BOOL bStart = YES;
     for(;i>0;i--){
-        if(floatChars[i] == '0') {
+        if(bStart && floatChars[i] == '0'){
             zeroLength++;
-        }else if(floatChars[i] == '.'){
-            i--;
+        }else{
+            bStart = NO;
             break;
         }
     }
     
     NSString *strRet;
     
-    strRet = [strFloat substringToIndex: length - zeroLength];
+    if(zeroLength == 8){
+        strRet = [strFloat substringToIndex: length - zeroLength - 1];
+    }else{
+        strRet = [strFloat substringToIndex: length - zeroLength];
+    }
+    
     return strRet;
 }
 
@@ -918,7 +924,6 @@ shouldChangeTextInRange:(NSRange)range
     NSInteger i = length - 1;
     for(;i>0;i--){
         if(floatChars[i] == '.'){
-            i--;
             break;
         }else{
             zeroLength++;
