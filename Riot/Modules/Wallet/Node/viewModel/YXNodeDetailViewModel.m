@@ -161,6 +161,7 @@
     YXWeakSelf
     NSMutableDictionary *paramDict = [[NSMutableDictionary alloc]init];
     [paramDict setObject:GET_A_NOT_NIL_STRING(model.walletId) forKey:@"walletId"];
+    [paramDict setObject:GET_A_NOT_NIL_STRING(model.ip) forKey:@"ip"];
     [NetWorkManager GET:kURL(@"/node/config") parameters:paramDict success:^(id  _Nonnull responseObject) {
         
         YXNodeConfigModel *nomalModel = [YXNodeConfigModel mj_objectWithKeyValues:responseObject];
