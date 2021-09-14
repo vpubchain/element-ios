@@ -27,7 +27,7 @@
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc]init];
         _titleLabel.numberOfLines = 0;
-        _titleLabel.text = @"没有兑现记录";
+        _titleLabel.text = @"暂无记录";
         _titleLabel.font = [UIFont fontWithName:@"PingFang SC" size: 12];
         _titleLabel.textColor = UIColor170;
         _titleLabel.textAlignment = NSTextAlignmentCenter;

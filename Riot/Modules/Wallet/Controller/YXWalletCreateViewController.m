@@ -5,7 +5,7 @@
 //  Created by 廖燊 on 2021/6/28.
 //  Copyright © 2021 https://www.vpubchain.info. All rights reserved.
 //
-
+#import "YXWalletViewController.h"
 #import "YXWalletCreateViewController.h"
 #import "YXWalletCreateWorldView.h"
 #import "YXWalletInputWorldView.h"
@@ -44,7 +44,18 @@
         YXWeakSelf
         _walletPopupView.cancelBlock = ^{
             weakSelf.walletPopupView.hidden = YES;
-            [weakSelf.navigationController popViewControllerAnimated:YES];
+            UINavigationController *navigationVC = weakSelf.navigationController;
+            UIViewController *currentVC;
+            for (UIViewController *vc in navigationVC.viewControllers) {
+                if ([vc isKindOfClass:YXWalletViewController.class]) {
+                    currentVC = vc;
+                }
+            }
+            if (currentVC) {
+                [weakSelf.navigationController popToViewController:currentVC animated:YES];
+            }else{
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+            }
         };
         _walletPopupView.hidden = YES;
     }
