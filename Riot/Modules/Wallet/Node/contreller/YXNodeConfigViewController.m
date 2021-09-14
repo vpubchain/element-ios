@@ -76,15 +76,22 @@
            
             if (model.ip.length > 0) {
                 weakSelf.nodeConfigView.nodeText = [NSString stringWithFormat:@"IP:%@",model.ip];
+                weakSelf.is_noteInfo = YES;
             }
             
             if (model.txId.length > 0) {
                 weakSelf.nodeConfigView.pledgeText = model.txId;
+                weakSelf.is_pledeg = YES;
+               
             }else{
                 [weakSelf.viewModel getPledegTxData:weakSelf.nodeListModel];
                 [weakSelf.viewModel getNodeInfo:weakSelf.nodeListModel];
             }
-       
+            
+            if (model.ip.length > 0 && model.txId.length > 0) {
+                weakSelf.isConfig = YES;
+            }
+            
         }];
         
         [_viewModel setGetNodeConfigFaildBlokc:^{
