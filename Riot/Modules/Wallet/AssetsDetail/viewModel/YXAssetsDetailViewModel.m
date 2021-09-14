@@ -10,6 +10,7 @@
 #import "YXAssetsDetailHeadTableViewCell.h"
 #import "YXWalletAddAccountTitleCell.h"
 #import "YXAssetsDetailListTableViewCell.h"
+#import "YXWalletRecordNoDataTableViewCell.h"
 
 @interface YXAssetsDetailViewModel ()
 @property(nonatomic) NSInteger currentPage;
@@ -18,7 +19,6 @@
 @implementation YXAssetsDetailViewModel
 - (void)reloadNewData:(YXWalletMyWalletRecordsItem *)model{
     self.currentPage = 1;
-    [self.sectionItems removeAllObjects];
     [MBProgressHUD showMessage:@""];
     YXWeakSelf
     NSMutableDictionary *paramDict = [[NSMutableDictionary alloc]init];
@@ -69,6 +69,8 @@
     
     NSMutableArray<SCETRowItem *> *rowItems = [NSMutableArray new];
     if (self.currentPage == 1) {
+        [self.sectionItems removeAllObjects];
+        
         //头部
         SCETRowItem *headItem = [SCETRowItem rowItemWithRowData:model cellClassString:NSStringFromClass([YXAssetsDetailHeadTableViewCell class])];
         headItem.cellHeight = 116;
@@ -85,6 +87,12 @@
             [rowItems addObject:detailListItem];
             
         }];
+        
+        if (unProcess.count == 0 && array.count == 0) {
+            SCETRowItem *noData = [SCETRowItem rowItemWithRowData:kBgColor cellClassString:NSStringFromClass([YXWalletRecordNoDataTableViewCell class])];
+            noData.cellHeight = 240;
+            [rowItems addObject:noData];
+        }
         
     }
 

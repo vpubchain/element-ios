@@ -73,9 +73,9 @@
         
         
         [_viewModel setGetNodeConfigSuccessBlokc:^(YXNodeConfigDetailModel * _Nonnull model) {
-           
+            
             if (model.ip.length > 0) {
-                weakSelf.nodeConfigView.nodeText = [NSString stringWithFormat:@"IP:%@",model.ip];
+                weakSelf.nodeConfigView.nodeText = [NSString stringWithFormat:@"IP:%@\n%@",model.ip,model.masternodeKey];
                 weakSelf.is_noteInfo = YES;
             }
             
