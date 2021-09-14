@@ -8,6 +8,7 @@
 
 #import "YXBaseViewModel.h"
 #import "YXNodeListModel.h"
+#import "YXNodeDetailModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface YXNodeDetailViewModel : YXBaseViewModel
@@ -18,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy)dispatch_block_t getNodePledegBlock;
 @property (nonatomic , copy)dispatch_block_t activationNodeBlock;
 @property (nonatomic , copy)dispatch_block_t walletArmingFlagNodeBlock;
+@property (nonatomic , copy)dispatch_block_t getNodeConfigFaildBlokc;
+@property (nonatomic , copy)void (^getNodeConfigSuccessBlokc)(YXNodeConfigDetailModel *model);
 @property (nonatomic , copy)void (^jumpNodeDetailBlock)(id model);
 - (void)reloadNewData:(YXNodeListdata *)model;
 - (void)getPledegTxData:(YXNodeListdata *)model;//获取质押交易记录
@@ -30,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
                                 ip:(NSString *)ip
                         privateKey:(NSString *)privateKey
                           Complete:(void (^)(void))complete;//重新激活节点
+///获取节点的配置信息
+- (void)getNodeConfig:(YXNodeListdata *)model;
 @end
 
 NS_ASSUME_NONNULL_END

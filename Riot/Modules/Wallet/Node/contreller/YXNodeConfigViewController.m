@@ -70,6 +70,34 @@
    
 
         }];
+        
+        
+        [_viewModel setGetNodeConfigSuccessBlokc:^(YXNodeConfigDetailModel * _Nonnull model) {
+           
+            if (model.ip.length > 0) {
+                weakSelf.nodeConfigView.nodeText = [NSString stringWithFormat:@"IP:%@",model.ip];
+                weakSelf.is_noteInfo = YES;
+            }
+            
+            if (model.txId.length > 0) {
+                weakSelf.nodeConfigView.pledgeText = model.txId;
+                weakSelf.is_pledeg = YES;
+               
+            }else{
+                [weakSelf.viewModel getPledegTxData:weakSelf.nodeListModel];
+                [weakSelf.viewModel getNodeInfo:weakSelf.nodeListModel];
+            }
+            
+            if (model.ip.length > 0 && model.txId.length > 0) {
+                weakSelf.isConfig = YES;
+            }
+            
+        }];
+        
+        [_viewModel setGetNodeConfigFaildBlokc:^{
+                [weakSelf.viewModel getPledegTxData:weakSelf.nodeListModel];
+                [weakSelf.viewModel getNodeInfo:weakSelf.nodeListModel];
+        }];
 
     }
     return _viewModel;
@@ -161,8 +189,9 @@
         make.top.mas_equalTo(self.naviView.mas_bottom);
     }];
     
-    [self.viewModel getPledegTxData:self.nodeListModel];
-    [self.viewModel getNodeInfo:self.nodeListModel];
+    
+    [self.viewModel getNodeConfig:self.nodeListModel];
+  
 }
 
 - (void)setIs_pledeg:(BOOL)is_pledeg{
