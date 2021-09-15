@@ -17,9 +17,11 @@
 @property (nonatomic , strong) YXNodeSettingView *nodeSettingView;
 @property (nonatomic , strong) YXNodeDetailViewModel *viewModel;
 @property (nonatomic , strong) YXNodeConfigDataItem *configData;
+@property (nonatomic , strong) YXNodeConfigDetailModel *configDetailModel;
 @property (nonatomic , strong) YXNodeListdata *noteInfo;
 @property (nonatomic , assign) BOOL is_pledeg;
 @property (nonatomic , assign) BOOL is_noteInfo;
+@property (nonatomic , assign) BOOL is_Continue;// 是否可以继续激活
 @property (nonatomic , strong) YXWalletPopupView *walletPopupView;
 @end
 
@@ -73,7 +75,7 @@
         
         
         [_viewModel setGetNodeConfigSuccessBlokc:^(YXNodeConfigDetailModel * _Nonnull model) {
-            
+            weakSelf.configDetailModel = model;
             if (model.ip.length > 0) {
                 weakSelf.nodeConfigView.nodeText = [NSString stringWithFormat:@"IP:%@\n%@",model.ip,model.masternodeKey];
                 weakSelf.is_noteInfo = YES;
@@ -90,13 +92,14 @@
             
             if (model.ip.length > 0 && model.txId.length > 0) {
                 weakSelf.isConfig = YES;
+                weakSelf.is_Continue = YES;
             }
             
         }];
         
         [_viewModel setGetNodeConfigFaildBlokc:^{
-                [weakSelf.viewModel getPledegTxData:weakSelf.nodeListModel];
-                [weakSelf.viewModel getNodeInfo:weakSelf.nodeListModel];
+            [weakSelf.viewModel getPledegTxData:weakSelf.nodeListModel];
+            [weakSelf.viewModel getNodeInfo:weakSelf.nodeListModel];
         }];
 
     }
@@ -215,16 +218,25 @@
 
 - (void)activationAction{
     
-    if (self.configData.confirmations < 15) {
+    if (self.configData.confirmations < 15 && !self.is_Continue) {
         [MBProgressHUD showSuccess:[NSString stringWithFormat:@"质押交易需要15个区块确认,现还需要%ld区块确认",(15 - self.configData.confirmations)]];
 
         return;
     }
     
     YXWeakSelf
-    [self.viewModel configNodeActivityWalletId:self.nodeListModel.walletId txid:self.configData.txid vout:@(self.configData.vout).stringValue ip:self.noteInfo.ip privateKey:self.nodeListModel.genkey Complete:^{
-        weakSelf.walletPopupView.hidden = NO;
-    }];
+    
+    if (self.is_Continue) {
+        [self.viewModel configNodeActivityWalletId:self.nodeListModel.walletId txid:self.configDetailModel.txId vout:self.configDetailModel.vout ip:self.configDetailModel.ip privateKey:self.nodeListModel.genkey Complete:^{
+            weakSelf.walletPopupView.hidden = NO;
+        }];
+    }else{
+        [self.viewModel configNodeActivityWalletId:self.nodeListModel.walletId txid:self.configData.txid vout:@(self.configData.vout).stringValue ip:self.noteInfo.ip privateKey:self.nodeListModel.genkey Complete:^{
+            weakSelf.walletPopupView.hidden = NO;
+        }];
+    }
+    
+   
 }
 
 @end

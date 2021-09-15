@@ -39,6 +39,9 @@
             if ([self.sendDataInfo.type isEqualToString:@"1"]){
                 _naviView.showRightLabel = YES;
                 _naviView.rightText = @"取消支付";
+            }else if ([self.sendDataInfo.type isEqualToString:@"2"]){
+                _naviView.showRightLabel = YES;
+                _naviView.rightText = @"取消兑现";
             }
         }
         YXWeakSelf
@@ -177,7 +180,7 @@
 
 -(YXWalletPopupView *)walletCancelPayView{
     if (!_walletCancelPayView) {
-        _walletCancelPayView = [[YXWalletPopupView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) type:WalletPopupViewCXZFType];
+        _walletCancelPayView = [[YXWalletPopupView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) type:[self.sendDataInfo.type isEqualToString:@"1"] ? WalletPopupViewCXZFType : WalletPopupViewCXDXType];
         YXWeakSelf
         //继续取消
         _walletCancelPayView.cancelBlock = ^{
