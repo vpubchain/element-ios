@@ -100,8 +100,7 @@ extern NSString *const kEndEditFieldTextNotification;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
-    _rowData.walletModel.cashCount = textField.text;
-    
+    _rowData.walletModel.cashCount = textField.text;    
 }
 
 -(void)dealloc{
@@ -116,6 +115,7 @@ extern NSString *const kEndEditFieldTextNotification;
 - (void)allCrashNotification:(NSNotification *)notification{
     NSString *balance = notification.object;
     self.textField.text = balance;
+    _rowData.walletModel.cashCount = balance;
 }
 
 @end
