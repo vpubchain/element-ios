@@ -59,7 +59,7 @@ extern NSString *const kAllCrashNotification;
 
 - (void)allLabelAction{
     
-    NSString *balance = @(self.rowData.walletModel.balance.totalAmount/100000000).stringValue;
+    NSString *balance = @(self.rowData.walletModel.balance.availableConfirmedAmount/100000000).stringValue;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kAllCrashNotification object:balance];
 }
