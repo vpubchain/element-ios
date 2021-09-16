@@ -16,6 +16,19 @@
 
 #import "YXWalletMyWalletModel.h"
 
+
+@implementation ByAddressItem
+
+@end
+
+@implementation YXWalletMyWalletBalance
++ (NSDictionary *)mj_objectClassInArray{
+    return @{
+        @"byAddress":[ByAddressItem class]
+    };
+}
+@end
+
 @implementation YXWalletMyWalletAddressModel
 @end
 

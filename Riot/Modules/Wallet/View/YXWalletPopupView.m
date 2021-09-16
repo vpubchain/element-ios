@@ -216,6 +216,14 @@
         }
             
             break;
+        case WalletPopupViewCXDXType:{//取消兑现
+            [self showPopupUIWith:@"取消兑现" des:@"取消兑现后，待处理交易将会被删除" State:WalletPopupViewWalletState center:NO];
+            _cancel.text = @"继续取消";
+            _determine.text = @"确认离开";
+            
+        }
+            
+            break;
         case WalletPopupViewSCQBType:{//删除钱包
             [self showPopupUIWith:@"删除钱包" des:@"此操作会删除您当前设备钱包数据您可以再次使用助记词恢复钱包" State:WalletPopupViewWalletState center:NO];
             

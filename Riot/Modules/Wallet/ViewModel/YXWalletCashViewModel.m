@@ -267,7 +267,7 @@
          }
      }
   
-    if (amount.doubleValue >= self.walletModel.balance) {
+    if (amount.doubleValue >= self.walletModel.balance.availableConfirmedAmount/100000000) {
         [MBProgressHUD showSuccess:@"兑现数量必须小于可兑现数量"];
         return;
     }

@@ -174,9 +174,9 @@ extern NSString *const kYXJumpWalletAssetsDetail;
 
 -(void)setupCellWithRowData:(YXWalletMyWalletRecordsItem *)rowData{
     _titleLabel.text = rowData.walletName;
-    _desLabel.text = [NSString stringWithFormat:@"%.4f",rowData.balance];//余额
+    _desLabel.text = [NSString stringWithFormat:@"%.4f",rowData.balance.totalAmount/100000000];//余额
     
-    _countLabel.text = [NSString stringWithFormat:@"≈￥%.2f",rowData.fundValue.floatValue * rowData.balance];
+    _countLabel.text = [NSString stringWithFormat:@"≈￥%.2f",rowData.fundValue.floatValue * rowData.balance.totalAmount/100000000];
     _numLabel.text = [NSString stringWithFormat:@"￥%@",rowData.fundValue];
 }
 
