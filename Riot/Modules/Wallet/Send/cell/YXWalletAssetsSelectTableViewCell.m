@@ -170,7 +170,7 @@
 -(void)setupCellWithRowData:(YXWalletSendModel *)rowData{
     
     _titleLabel.text = rowData.currentSelectModel.walletName;
-    CGFloat baliance = rowData.currentSelectModel.fundValue.floatValue * rowData.currentSelectModel.balance;
+    CGFloat baliance = rowData.currentSelectModel.fundValue.floatValue * rowData.currentSelectModel.balance.totalAmount/100000000;
     _tipLabel.text = [NSString stringWithFormat:@"(%@) 总余额：%@",rowData.currentSelectModel.coinName,[NSString stringWithFormat:@"≈￥%.2f",baliance]];
     
     NSString *url = kImageURL(GET_A_NOT_NIL_STRING(rowData.currentSelectModel.image));

@@ -39,6 +39,24 @@ typedef NS_ENUM(NSInteger , YXWalletNoteType) {
 @property (nonatomic , copy) NSString              * account;
 @end
 
+@interface ByAddressItem :NSObject
+@property (nonatomic , copy) NSString              * address;
+@property (nonatomic , assign) CGFloat              amount;
+@property (nonatomic , copy) NSString              * path;
+
+@end
+
+@interface YXWalletMyWalletBalance :NSObject
+@property (nonatomic , assign) CGFloat              availableAmount;
+@property (nonatomic , assign) CGFloat              availableConfirmedAmount;
+@property (nonatomic , strong) NSArray <ByAddressItem *>              * byAddress;
+@property (nonatomic , assign) CGFloat              lockedAmount;
+@property (nonatomic , assign) CGFloat              lockedConfirmedAmount;
+@property (nonatomic , assign) CGFloat              totalAmount;
+@property (nonatomic , assign) CGFloat              totalConfirmedAmount;
+
+@end
+
 @interface YXWalletMyWalletRecordsItem :NSObject
 @property (nonatomic , copy) NSString              * walletId;
 @property (nonatomic , copy) NSString              * userId;
@@ -53,7 +71,7 @@ typedef NS_ENUM(NSInteger , YXWalletNoteType) {
 @property (nonatomic , copy) NSString              * password;
 @property (nonatomic , copy) NSString              * coinName;
 @property (nonatomic , copy) NSString              * baseSymbol;
-@property (nonatomic , assign) CGFloat              balance;
+@property (nonatomic , strong) YXWalletMyWalletBalance             *balance;
 @property (nonatomic , copy) NSString              * fundValue;
 @property (nonatomic , copy) NSString              * image;
 @property (nonatomic , copy) NSString              * cashCount;//兑换量

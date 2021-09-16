@@ -59,7 +59,7 @@ extern NSString *const kAllCrashNotification;
 
 - (void)allLabelAction{
     
-    NSString *balance = @(self.rowData.walletModel.balance).stringValue;
+    NSString *balance = @(self.rowData.walletModel.balance.totalAmount/100000000).stringValue;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kAllCrashNotification object:balance];
 }
@@ -148,7 +148,7 @@ extern NSString *const kAllCrashNotification;
 -(void)setupCellWithRowData:(YXWalletCashModel *)rowData{
     _rowData = rowData;
     
-    _desLabel.text = [NSString stringWithFormat:@"可兑换数量%@  %@",[NSString stringWithFormat:@"%.4f",rowData.walletModel.balance],rowData.walletModel.baseSymbol];
+    _desLabel.text = [NSString stringWithFormat:@"可兑换数量%@  %@",[NSString stringWithFormat:@"%.4f",rowData.walletModel.balance.availableConfirmedAmount/100000000],rowData.walletModel.baseSymbol];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
