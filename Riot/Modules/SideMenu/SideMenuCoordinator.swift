@@ -192,14 +192,14 @@ extension SideMenuCoordinator: SideMenuViewModelCoordinatorDelegate {
     func sideMenuViewModel(_ viewModel: SideMenuViewModelType, didTapMenuItem menuItem: SideMenuItem, fromSourceView sourceView: UIView) {
         
         switch menuItem {
-        case .inviteFriends:
-            self.showInviteFriends(from: sourceView)
+//        case .inviteFriends:
+//            self.showInviteFriends(from: sourceView)
         case .settings:
             self.showSettings()
-        case .help:
-            self.showHelp()
-        case .feedback:
-            self.showBugReport()
+//        case .help:
+//            self.showHelp()
+//        case .feedback:
+//            self.showBugReport()
         case .wallet:
             self.showWallet()
         }

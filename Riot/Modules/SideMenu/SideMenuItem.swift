@@ -18,10 +18,10 @@ import Foundation
 
 /// SideMenuItem represents side menu actions
 enum SideMenuItem {
-    case inviteFriends
+//    case inviteFriends
     case settings
-    case help
-    case feedback
+//    case help
+//    case feedback
     case wallet
 }
 
@@ -31,14 +31,14 @@ extension SideMenuItem {
         let title: String
 
         switch self {
-        case .inviteFriends:
-            title = VectorL10n.sideMenuActionInviteFriends
+//        case .inviteFriends:
+//            title = VectorL10n.sideMenuActionInviteFriends
         case .settings:
             title = VectorL10n.sideMenuActionSettings
-        case .help:
-            title = VectorL10n.sideMenuActionHelp
-        case .feedback:
-            title = VectorL10n.sideMenuActionFeedback
+//        case .help:
+//            title = VectorL10n.sideMenuActionHelp
+//        case .feedback:
+//            title = VectorL10n.sideMenuActionFeedback
         case .wallet:
             title = VectorL10n.sideMenuActionWallet
         }
@@ -50,14 +50,14 @@ extension SideMenuItem {
         let icon: UIImage
 
         switch self {
-        case .inviteFriends:
-            icon = Asset.Images.sideMenuActionIconShare.image
+//        case .inviteFriends:
+//            icon = Asset.Images.sideMenuActionIconShare.image
         case .settings:
             icon = Asset.Images.sideMenuActionIconSettings.image
-        case .help:
-            icon = Asset.Images.sideMenuActionIconHelp.image
-        case .feedback:
-            icon = Asset.Images.sideMenuActionIconFeedback.image
+//        case .help:
+//            icon = Asset.Images.sideMenuActionIconHelp.image
+//        case .feedback:
+//            icon = Asset.Images.sideMenuActionIconFeedback.image
         case .wallet:
             icon = Asset.Images.sideMenuActionIconWallet.image
         }
