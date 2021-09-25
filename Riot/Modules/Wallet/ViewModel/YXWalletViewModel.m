@@ -232,6 +232,7 @@
             if (weakSelf.checkPasswordFailedBlock) {
                 weakSelf.checkPasswordFailedBlock();
             }
+            [MBProgressHUD showError:@"密码验证错误"];
         }
         
     } failure:^(NSError * _Nonnull error) {
