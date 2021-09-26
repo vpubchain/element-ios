@@ -47,8 +47,8 @@ typedef NS_ENUM(NSInteger , YXWalletNoteType) {
 @end
 
 @interface YXWalletMyWalletBalance :NSObject
-@property (nonatomic , assign) CGFloat              availableAmount;
-@property (nonatomic , assign) CGFloat              availableConfirmedAmount;
+@property (nonatomic , assign) CGFloat              availableAmountExcludeMasternode;
+@property (nonatomic , assign) CGFloat              availableConfirmedAmountExcludeMasternode;
 @property (nonatomic , strong) NSArray <ByAddressItem *>              * byAddress;
 @property (nonatomic , assign) CGFloat              lockedAmount;
 @property (nonatomic , assign) CGFloat              lockedConfirmedAmount;

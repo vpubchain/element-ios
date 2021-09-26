@@ -85,7 +85,7 @@
          }
      }
 
-     if (amount.doubleValue >= self.currentSelectModel.balance.availableConfirmedAmount/100000000) {
+     if (amount.doubleValue >= self.currentSelectModel.balance.availableConfirmedAmountExcludeMasternode/100000000) {
          [MBProgressHUD showSuccess:@"发送数量必须小于可用数量"];
          return;
      }
